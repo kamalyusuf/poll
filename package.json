@@ -1,0 +1,58 @@
+{
+  "name": "works",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "dev": "turbo run dev --parallel --no-cache",
+    "api:dev": "turbo run dev --scope=api --no-cache",
+    "web:dev": "turbo run dev --scope=web --no-cache"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.4.0",
+    "turbo": "^1.0.28",
+    "typescript": "^4.5.4"
+  },
+  "turbo": {
+    "baseBranch": "origin/main",
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": [
+          "dist/**",
+          ".next/**"
+        ]
+      },
+      "test": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": []
+      },
+      "deploy": {
+        "dependsOn": [
+          "build",
+          "test"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "dev": {
+        "cache": false
+      }
+    }
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
