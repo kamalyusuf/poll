@@ -52,7 +52,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
               pauseOnHover
               pauseOnFocusLoss
               transition={Slide}
-              limit={8}
+              limit={3}
             />
             <SocketHandler />
           </SocketProvider>

@@ -22,40 +22,10 @@ import { BiUpvote } from "react-icons/bi";
 import TimeAgo from "react-timeago";
 import { AxiosError } from "axios";
 import { ErrorAlert } from "../../components/ErrorAlert";
-import Countdown from "react-countdown";
 import { SharePollButton } from "./SharePollButton";
 import { NewPollButton } from "./NewPollButton";
-import PollEndedAlert from "./PollEndedAlert";
 import { AbsoluteCenter } from "../../components/AbsoluteCenter";
-
-const TimeRemaining = ({
-  time,
-  onComplete
-}: {
-  time: string;
-  onComplete: () => void;
-}) => {
-  return (
-    <Countdown
-      date={time}
-      onComplete={() => onComplete()}
-      onMount={({ completed }) => {
-        if (completed) {
-          onComplete();
-        }
-      }}
-      renderer={({ hours, minutes, seconds, completed }) => {
-        if (completed) return <PollEndedAlert />;
-
-        return (
-          <Text color="yellow" style={{ fontStyle: "italic", fontSize: 16 }}>
-            ending in {hours}:{minutes}:{seconds}
-          </Text>
-        );
-      }}
-    />
-  );
-};
+import { PollTimeRemaining } from "./PollTimeRemaining";
 
 const vote = async (id: string, payload: VotePollPayload) =>
   (
@@ -121,7 +91,7 @@ export const VotePollPage = () => {
             />
             <Divider color="dark" />
           </Box>
-          <TimeRemaining
+          <PollTimeRemaining
             time={poll.expires_at}
             onComplete={() => setEnded(true)}
           />

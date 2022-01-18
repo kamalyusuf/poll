@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { ApiError, Poll, PollStatus } from "types";
 import { ErrorAlert } from "../../components/ErrorAlert";
@@ -21,6 +21,7 @@ import { PollOption } from "./PollOption";
 import { SharePollButton } from "./SharePollButton";
 import TimeAgo from "react-timeago";
 import { AbsoluteCenter } from "../../components/AbsoluteCenter";
+import { PollTimeRemaining } from "./PollTimeRemaining";
 
 export const PollResultPage = () => {
   const router = useRouter();
@@ -32,6 +33,7 @@ export const PollResultPage = () => {
   } = useQuery<Poll, AxiosError<ApiError>>(`/polls/${id}`, {
     enabled: !!id
   });
+  const [ended, setEnded] = useState(false);
 
   if (isLoading) {
     return (
@@ -60,7 +62,14 @@ export const PollResultPage = () => {
         }}
       >
         <Group direction="column" grow spacing="sm">
-          {poll.status === PollStatus.ENDED && <PollEndedAlert />}
+          {ended || poll.status === PollStatus.ENDED ? (
+            <PollEndedAlert />
+          ) : (
+            <PollTimeRemaining
+              time={poll.expires_at}
+              onComplete={() => setEnded(true)}
+            />
+          )}
           <Heading title={poll.title} color="indigo" order={3} />
           <Divider color="gray" />
           <Group direction="column" spacing={5}>
@@ -80,7 +89,7 @@ export const PollResultPage = () => {
               <Button
                 color="indigo"
                 onClick={() => router.push(`/${poll._id}`)}
-                disabled={poll.status === PollStatus.ENDED}
+                disabled={ended || poll.status === PollStatus.ENDED}
               >
                 cast a vote
               </Button>
@@ -99,5 +108,3 @@ export const PollResultPage = () => {
     </Container>
   );
 };
-
-PollResultPage.ws = true;

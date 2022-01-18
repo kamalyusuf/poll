@@ -8,7 +8,9 @@ import _ from "lodash";
 import { pollQueue } from "./poll.queue";
 import { io } from "../../lib/io";
 import { Request } from "express";
-import { nanoid } from "nanoid";
+import { v4, validate, version } from "uuid";
+
+const v4Validate = (text: string) => validate(text) && version(text) === 4;
 
 export class PollsService {
   constructor(private readonly pollsRepo: PollsRepository) {}
@@ -47,8 +49,16 @@ export class PollsService {
       throw new BadRequestError("no poll found");
     }
 
-    if (xvid && (await redis.sismember(poll._id.toString(), xvid))) {
-      throw new BadRequestError("you already voted");
+    if (xvid) {
+      if (!v4Validate(xvid)) {
+        throw new BadRequestError(
+          "please clear your local storage and try again"
+        );
+      }
+
+      if (await redis.sismember(poll._id.toString(), xvid)) {
+        throw new BadRequestError("you already voted");
+      }
     }
 
     await this.pollsRepo.updateOne(
@@ -64,7 +74,7 @@ export class PollsService {
       }
     );
 
-    const vid = xvid ?? nanoid();
+    const vid = xvid ?? v4();
     await redis.sadd(poll._id.toString(), vid);
 
     const p = await this.findByIdWithTotalVotes(poll._id);
@@ -98,13 +108,16 @@ export class PollsService {
   }
 
   async endPoll(id: Types.ObjectId) {
-    await this.pollsRepo.updateOne(
-      {
-        _id: id,
-        status: PollStatus.ACTIVE
-      },
-      { status: PollStatus.ENDED }
-    );
+    await Promise.all([
+      this.pollsRepo.updateOne(
+        {
+          _id: id,
+          status: PollStatus.ACTIVE
+        },
+        { status: PollStatus.ENDED }
+      ),
+      redis.del(id.toString())
+    ]);
 
     return this.findByIdWithTotalVotes(id);
   }

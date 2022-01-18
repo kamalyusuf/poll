@@ -28,9 +28,9 @@
     "lodash": "^4.17.21",
     "mongoose": "^6.1.6",
     "mongoose-unique-validator": "^3.0.0",
-    "nanoid": "^3.2.0",
     "socket.io": "^4.4.1",
     "ts-mongoose": "^0.0.24",
+    "uuid": "^8.3.2",
     "winston": "^3.4.0"
   },
   "devDependencies": {
@@ -39,6 +39,7 @@
     "@types/ioredis": "^4.28.7",
     "@types/lodash": "^4.14.178",
     "@types/mongoose-unique-validator": "^1.0.5",
+    "@types/uuid": "^8.3.4",
     "@types/validator": "^13.7.1",
     "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.6",
