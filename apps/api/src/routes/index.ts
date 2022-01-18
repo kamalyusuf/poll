@@ -1,3 +1,4 @@
+import { env } from "../lib/env";
 import { useGlobalErrorHandler } from "../middlewares/error";
 import { Router } from "express";
 import listRoutes from "@kamalyb/express-list-routes";

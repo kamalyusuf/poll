@@ -25,6 +25,7 @@ class App {
   }
 
   private configure() {
+    this._app.set("trust proxy", 1);
     this._app.use(express.json());
     this._app.use(cors({ origin: env.WEB_URL, credentials: true }));
 

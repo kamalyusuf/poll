@@ -1,3 +1,4 @@
+import { redis } from "../../lib/redis";
 import { pollsRepo, PollsRepository } from "./polls.repository";
 import { CreatePollPayload, PollStatus, VotePollPayload } from "types";
 import { Types } from "mongoose";
@@ -6,6 +7,8 @@ import { PollDoc } from "./poll.model";
 import _ from "lodash";
 import { pollQueue } from "./poll.queue";
 import { io } from "../../lib/io";
+import { Request } from "express";
+import { nanoid } from "nanoid";
 
 export class PollsService {
   constructor(private readonly pollsRepo: PollsRepository) {}
@@ -31,7 +34,9 @@ export class PollsService {
     return poll;
   }
 
-  async vote(poll: PollDoc, { option_id }: VotePollPayload) {
+  async vote(req: Request, poll: PollDoc, { option_id }: VotePollPayload) {
+    const xvid = req.headers["x-vid"] as string | undefined;
+
     if (
       !(await this.pollsRepo.exists({
         _id: poll._id,
@@ -40,6 +45,10 @@ export class PollsService {
       }))
     ) {
       throw new BadRequestError("no poll found");
+    }
+
+    if (xvid && (await redis.sismember(poll._id.toString(), xvid))) {
+      throw new BadRequestError("you already voted");
     }
 
     await this.pollsRepo.updateOne(
@@ -55,11 +64,14 @@ export class PollsService {
       }
     );
 
+    const vid = xvid ?? nanoid();
+    await redis.sadd(poll._id.toString(), vid);
+
     const p = await this.findByIdWithTotalVotes(poll._id);
 
     io.get().to(poll._id.toString()).emit("poll voted", p);
 
-    return p;
+    return { poll: p, vid };
   }
 
   // note to self: aggregation does not return a mongoose document

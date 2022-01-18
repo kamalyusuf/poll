@@ -16,9 +16,9 @@ export const Vote: RequestHandler = async (req, res) => {
 
   const poll = await pollsService.findById(new Types.ObjectId(req.params.id));
 
-  const updated = await pollsService.vote(poll, payload);
+  const data = await pollsService.vote(req, poll, payload);
 
-  res.send(updated);
+  res.send(data);
 };
 
 export const GetById: RequestHandler = async (req, res) => {

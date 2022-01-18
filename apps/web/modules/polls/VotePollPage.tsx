@@ -59,9 +59,11 @@ const TimeRemaining = ({
 
 const vote = async (id: string, payload: VotePollPayload) =>
   (
-    await api.post<Poll>(`/polls/${id}/vote`, payload).catch((e) => {
-      throw e;
-    })
+    await api
+      .post<{ poll: Poll; vid: string }>(`/polls/${id}/vote`, payload)
+      .catch((e) => {
+        throw e;
+      })
   ).data;
 
 export const VotePollPage = () => {
@@ -73,14 +75,14 @@ export const VotePollPage = () => {
     isLoading: isLoadingPoll
   } = useQuery<Poll, AxiosError<ApiError>>(`/polls/${id}`, { enabled: !!id });
   const [value, setValue] = useState("");
-  const { mutateAsync, isLoading } = useWrappedMutation<Poll, VotePollPayload>(
-    (variables) => vote(poll._id, variables),
-    {
-      onSuccess: (poll) => {
-        router.push(`/${poll._id}/r`);
-      }
+  const { mutateAsync, isLoading } = useWrappedMutation<
+    { poll: Poll; vid: string },
+    VotePollPayload
+  >((variables) => vote(poll._id, variables), {
+    onSuccess: ({ poll }) => {
+      router.push(`/${poll._id}/r`);
     }
-  );
+  });
   const [ended, setEnded] = useState(false);
 
   if (isLoadingPoll) {
@@ -145,7 +147,7 @@ export const VotePollPage = () => {
               onClick={() => {
                 if (!value) return;
 
-                mutateAsync({ option_id: value });
+                mutateAsync({ option_id: value }).catch(() => {});
               }}
               loading={isLoading}
               disabled={isLoading || ended}

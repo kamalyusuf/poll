@@ -45,7 +45,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             <GlobalStyles />
             <Component {...pageProps} />
             <ToastContainer
-              position="top-right"
+              position="top-center"
               autoClose={3000}
               newestOnTop={true}
               closeOnClick

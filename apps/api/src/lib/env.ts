@@ -6,6 +6,7 @@ export interface Env {
   MONGO_URL: string;
   NODE_ENV: "development" | "production";
   WEB_URL: string;
+  SECRET_KEY: string;
 }
 
 export const env = cleanEnv<Env>(process.env, {
@@ -15,5 +16,6 @@ export const env = cleanEnv<Env>(process.env, {
   NODE_ENV: str({
     choices: ["development", "production"]
   }) as any,
-  WEB_URL: url()
+  WEB_URL: url(),
+  SECRET_KEY: str()
 });
