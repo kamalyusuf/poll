@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+    ports:
+      - "7000:7000"
+    env_file:
+      - apps/api/.env
+    environment:
+      - MONGO_URL=mongodb://host.docker.internal:27017/poll
+      - REDIS_URL=redis://host.docker.internal:6379

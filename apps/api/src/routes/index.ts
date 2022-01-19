@@ -9,6 +9,10 @@ export const router = Router();
 
 router.use("/api/polls", PollsRouter);
 
+router.get(["/", "/api", "/health", "/api/health"], (req, res) =>
+  res.send({ ok: true })
+);
+
 router.use(Sentry.Handlers.errorHandler());
 
 router.use((_, __, ___) => {

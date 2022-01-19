@@ -5,6 +5,7 @@
     "rootDir": "./src",
     "noUnusedParameters": false,
     "baseUrl": "./",
-    "isolatedModules": false
+    "isolatedModules": false,
+    "target": "es5"
   }
 }

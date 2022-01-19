@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "turbo run dev --parallel --no-cache",
     "api:dev": "turbo run dev --scope=api --no-cache",
-    "web:dev": "turbo run dev --scope=web --no-cache"
+    "web:dev": "turbo run dev --scope=web --no-cache",
+    "api:build": "turbo run build --scope=api"
   },
   "devDependencies": {
     "lerna": "^4.0.0",

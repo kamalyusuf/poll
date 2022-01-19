@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "kill-port 7000 && ts-node-dev --respawn --transpile-only --rs -r dotenv/config src/index.ts"
+    "dev": "kill-port 7000 && ts-node-dev --respawn --transpile-only --rs -r dotenv/config src/index.ts",
+    "build": "rimraf ./dist && tsc"
   },
   "keywords": [],
   "author": "",
@@ -34,7 +35,8 @@
     "socket.io": "^4.4.1",
     "ts-mongoose": "^0.0.24",
     "uuid": "^8.3.2",
-    "winston": "^3.4.0"
+    "winston": "^3.4.0",
+    "types": "*"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
@@ -44,6 +46,7 @@
     "@types/mongoose-unique-validator": "^1.0.5",
     "@types/uuid": "^8.3.4",
     "@types/validator": "^13.7.1",
+    "rimraf": "^3.0.2",
     "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.6",
     "tsconfig": "*"

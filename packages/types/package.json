@@ -2,9 +2,16 @@
   "name": "types",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "./src/index.ts",
-  "typings": "./src/index.ts",
-  "scripts": {},
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc"
+  },
   "devDependencies": {
     "tsconfig": "*"
   }

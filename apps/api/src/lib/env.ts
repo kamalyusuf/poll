@@ -21,3 +21,5 @@ export const env = cleanEnv<Env>(process.env, {
   SECRET_KEY: str(),
   SENTRY_DSN: str({ devDefault: undefined })
 });
+
+console.log(env);
