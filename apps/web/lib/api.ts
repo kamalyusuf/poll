@@ -40,6 +40,10 @@ api.interceptors.response.use(
       messages.push("something went wrong");
     }
 
+    // if (messages.some((message) => message.includes("please try again"))) {
+    //   localStorage.removeItem("vid");
+    // }
+
     messages.forEach((message) => toast.error(message));
 
     return Promise.reject(error);
