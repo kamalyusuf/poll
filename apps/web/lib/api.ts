@@ -10,7 +10,8 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const vid = localStorage.getItem("vid");
+  const vid =
+    typeof localStorage !== "undefined" && localStorage.getItem("vid");
   if (vid) {
     config.headers["x-vid"] = vid;
   }
