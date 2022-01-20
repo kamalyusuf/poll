@@ -18,7 +18,6 @@ RUN apk update
 WORKDIR /app
 COPY --from=installer /app/ .
 COPY --from=builder /app/out/full/ .
-COPY .gitignore .gitignore
 
 RUN yarn turbo run build --scope=api --include-dependencies --no-deps
 
