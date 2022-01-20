@@ -35,6 +35,14 @@ export const SocketProvider = ({ children }: PropsWithChildren<{}>) => {
     }
   }, [socket]);
 
+  useEffect(() => {
+    if (!socket) return;
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [socket]);
+
   return (
     <SocketContext.Provider
       value={useMemo(() => ({ socket, setSocket }), [socket])}

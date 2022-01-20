@@ -25,11 +25,11 @@ import { AiOutlineMinus } from "react-icons/ai";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { addDays } from "date-fns";
-import { CreatePollPayload, Poll } from "types";
 import { api } from "../../lib/api";
 import { useRouter } from "next/router";
 import { useWrappedMutation } from "../../hooks/useWrappedMutation";
 import { toast } from "react-toastify";
+import { CreatePollPayload, Poll } from "types";
 
 const create = async (payload: CreatePollPayload) =>
   (

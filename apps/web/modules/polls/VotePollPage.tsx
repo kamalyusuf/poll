@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Heading } from "../../components/Heading";
 import { useQuery } from "react-query";
-import { ApiError, Poll, VotePollPayload } from "types";
+import { ApiError, Poll, VotePollPayload, PollStatus } from "types";
 import { api } from "../../lib/api";
 import { useWrappedMutation } from "../../hooks/useWrappedMutation";
 import { BiUpvote } from "react-icons/bi";
@@ -53,7 +53,7 @@ export const VotePollPage = () => {
       router.push(`/${poll._id}/r`);
     }
   });
-  const [ended, setEnded] = useState(false);
+  const [ended, setEnded] = useState(poll?.status === PollStatus.ENDED);
 
   if (isLoadingPoll) {
     return (
@@ -63,9 +63,13 @@ export const VotePollPage = () => {
     );
   }
 
-  if (error) return <ErrorAlert error={error} />;
+  if (error) {
+    return <ErrorAlert error={error} />;
+  }
 
-  if (!poll) return null;
+  if (!poll) {
+    return null;
+  }
 
   return (
     <Container size="md">
@@ -115,7 +119,9 @@ export const VotePollPage = () => {
             <Button
               color="indigo"
               onClick={() => {
-                if (!value) return;
+                if (!value) {
+                  return;
+                }
 
                 mutateAsync({ option_id: value }).catch(() => {});
               }}
