@@ -1,13 +1,12 @@
 import { useGlobalErrorHandler } from "../middlewares/error";
 import { Router } from "express";
-import listRoutes from "@kamalyb/express-list-routes";
-import { router as PollsRouter } from "../modules/polls/polls.route";
+import { router as PollRouter } from "../modules/poll/poll.route";
 import { NotFoundError } from "@kamalyb/errors";
 import * as Sentry from "@sentry/node";
 
 export const router = Router();
 
-router.use("/api/polls", PollsRouter);
+router.use("/api/polls", PollRouter);
 
 router.get(["/", "/api", "/health", "/api/health"], (req, res) =>
   res.send({ ok: true })
@@ -21,4 +20,4 @@ router.use((_, __, ___) => {
 
 router.use(useGlobalErrorHandler);
 
-listRoutes(router);
+require("express-list-routes")(router);

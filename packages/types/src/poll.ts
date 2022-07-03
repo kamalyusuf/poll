@@ -3,10 +3,6 @@ export enum PollStatus {
   ENDED = "ended"
 }
 
-export const POLL_STATUSES = Object.values(PollStatus) as Readonly<
-  PollStatus[]
->;
-
 export interface CreatePollPayload {
   title: string;
   options: string[];

@@ -1,5 +1,5 @@
 {
-  "name": "works",
+  "name": "poll",
   "private": true,
   "workspaces": {
     "packages": [
@@ -8,52 +8,20 @@
     ]
   },
   "scripts": {
-    "dev": "turbo run dev --parallel --no-cache",
-    "api:dev": "turbo run dev --scope=api --scope=types --no-deps --no-cache",
-    "web:dev": "turbo run dev --scope=web --scope=types --no-deps --no-cache",
+    "dev": "turbo run dev --parallel --no-cache --parallel --continue",
+    "api:dev": "turbo run dev --scope=api --include-dependencies --no-cache",
+    "web:dev": "turbo run dev --scope=web --include-dependencies --no-cache",
     "api:build": "turbo run build --scope=api"
   },
   "devDependencies": {
-    "lerna": "^4.0.0",
-    "prettier": "^2.5.1",
+    "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
-    "ts-node": "^10.4.0",
-    "turbo": "^1.0.28",
-    "typescript": "^4.5.4"
-  },
-  "turbo": {
-    "baseBranch": "origin/main",
-    "pipeline": {
-      "build": {
-        "dependsOn": [
-          "^build"
-        ],
-        "outputs": [
-          "dist/**",
-          ".next/**"
-        ]
-      },
-      "test": {
-        "dependsOn": [
-          "^build"
-        ],
-        "outputs": []
-      },
-      "deploy": {
-        "dependsOn": [
-          "build",
-          "test"
-        ]
-      },
-      "lint": {
-        "outputs": []
-      },
-      "dev": {
-        "cache": false
-      }
-    }
+    "ts-node": "^10.8.2",
+    "turbo": "^1.3.1",
+    "typescript": "^4.7.4"
   },
   "engines": {
     "node": ">=14.0.0"
-  }
+  },
+  "packageManager": "yarn@1.22.17"
 }

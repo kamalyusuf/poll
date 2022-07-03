@@ -12,6 +12,7 @@ redis.on("connect", () => {
 });
 
 redis.on("error", (error) => {
-  console.log("redis.error", error);
+  logger.error(`failed to connect to redis. reason: ${error.message}`);
+
   process.exit(1);
 });
