@@ -14,4 +14,4 @@ export type Color =
 
 export type ApiError = AxiosError<ApiTypeError>;
 
-export type PageComponent<T = {}> = NextPage<T> & { ws?: boolean };
+export type PageComponent<T = {}> = NextPage<T>;

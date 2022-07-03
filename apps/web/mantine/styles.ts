@@ -1,7 +1,5 @@
 import { MantineTheme } from "@mantine/core";
 
-// remember: `sx={}` always add the styles to the root element
-
 export const styles = {
   TextInput: (theme: MantineTheme) => ({
     input: {

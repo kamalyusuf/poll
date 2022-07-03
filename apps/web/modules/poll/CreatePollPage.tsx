@@ -16,13 +16,13 @@ import {
   Formik,
   ArrayHelpers,
   Field,
-  FieldArray,
+  FieldArray as FormikFieldArray,
   FieldProps,
   Form
 } from "formik";
 import { MdOutlineAdd } from "react-icons/md";
 import { AiOutlineMinus } from "react-icons/ai";
-import DatePicker from "react-datepicker";
+import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { addDays } from "date-fns";
 import { api } from "../../lib/api";
@@ -30,6 +30,9 @@ import { useRouter } from "next/router";
 import { useWrappedMutation } from "../../hooks/useWrappedMutation";
 import { toast } from "react-toastify";
 import { CreatePollPayload, Poll } from "types";
+
+const DatePicker = ReactDatePicker as any;
+const FieldArray = FormikFieldArray as any;
 
 const create = async (payload: CreatePollPayload) =>
   (
@@ -51,9 +54,7 @@ export const CreatePollPage = () => {
     setSd(new Date());
   }, []);
 
-  if (!sd) {
-    return null;
-  }
+  if (!sd) return null;
 
   return (
     <AbsoluteCenter>
@@ -77,7 +78,7 @@ export const CreatePollPage = () => {
             order={3}
             align="center"
           />
-          <Divider color="gray" labelPosition="center" my="xs" />
+          <Divider color="gray" labelPosition="center" />
 
           <Formik
             initialValues={{
@@ -89,11 +90,11 @@ export const CreatePollPage = () => {
               const additional = 300000;
               const min = new Date().getTime() + additional;
               const difference = min - values.expires_at.getTime();
-              if (Math.sign(difference) === 1) {
+
+              if (Math.sign(difference) === 1)
                 return toast.warn(
                   "poll end time must be at least 5 minutes from now"
                 );
-              }
 
               return mutateAsync({
                 ...values,

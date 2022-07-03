@@ -1,11 +1,5 @@
 import { io, Socket } from "socket.io-client";
-import React, {
-  PropsWithChildren,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from "react";
+import { ReactNode, useEffect, useMemo, useState, createContext } from "react";
 
 type V = Socket | null;
 
@@ -14,26 +8,24 @@ type Context = {
   setSocket: (socket: V) => void;
 };
 
-export const SocketContext = React.createContext<Context>({
+export const SocketContext = createContext<Context>({
   socket: null,
   setSocket: () => {}
 });
 
-export const SocketProvider = ({ children }: PropsWithChildren<{}>) => {
+export const SocketProvider = ({ children }: { children: ReactNode }) => {
   const [socket, setSocket] = useState<V>(null);
-  const isConnecting = useRef(false);
 
   useEffect(() => {
-    if (!socket && !isConnecting.current) {
-      isConnecting.current = true;
-      const s = io(process.env.NEXT_PUBLIC_API_URL, {
-        rememberUpgrade: true
-      });
+    const s = io(process.env.NEXT_PUBLIC_API_URL, {
+      rememberUpgrade: true,
+      autoConnect: true,
+      reconnectionAttempts: 2,
+      transports: ["websocket"]
+    });
 
-      setSocket(s);
-      isConnecting.current = false;
-    }
-  }, [socket]);
+    setSocket(s);
+  }, []);
 
   useEffect(() => {
     if (!socket) return;

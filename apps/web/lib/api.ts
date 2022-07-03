@@ -12,9 +12,8 @@ export const api = axios.create({
 api.interceptors.request.use((config) => {
   const vid =
     typeof localStorage !== "undefined" && localStorage.getItem("vid");
-  if (vid) {
-    config.headers["x-vid"] = vid;
-  }
+
+  if (vid) config.headers["x-vid"] = vid;
 
   return config;
 });
@@ -22,27 +21,15 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => {
     const vid = response.data.vid;
-    if (vid && !localStorage.getItem("vid")) {
-      localStorage.setItem("vid", vid);
-    }
+
+    if (vid && !localStorage.getItem("vid")) localStorage.setItem("vid", vid);
 
     return response;
   },
   (error: AxiosError<ApiError>) => {
-    const status = error?.response?.status;
-    // if (status === 422) {
-    //   return Promise.reject(error);
-    // }
-
     const messages = parseApiError(error);
 
-    if (messages.length === 0) {
-      messages.push("something went wrong");
-    }
-
-    // if (messages.some((message) => message.includes("please try again"))) {
-    //   localStorage.removeItem("vid");
-    // }
+    if (messages.length === 0) messages.push("something went wrong");
 
     messages.forEach((message) => toast.error(message));
 

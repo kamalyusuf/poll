@@ -5,6 +5,7 @@ import Redis from "ioredis";
 import { Queue, QueueScheduler, Job, Worker } from "bullmq";
 import { env } from "../../lib/env";
 import { redis } from "../../lib/redis";
+import * as Sentry from "@sentry/node";
 
 interface Poll {
   _id: string;
@@ -35,7 +36,7 @@ export class PollQueue {
   async add(poll: Poll) {
     await this._queue.add(this.name, poll, {
       removeOnComplete: env.isProduction,
-      removeOnFail: env.isProduction,
+      removeOnFail: false,
       attempts: 6,
       backoff: {
         type: "exponential",
@@ -45,8 +46,12 @@ export class PollQueue {
     });
   }
 
-  listen() {
-    new QueueScheduler(this.name, { connection: this._redis });
+  async listen() {
+    const scheduler = new QueueScheduler(this.name, {
+      connection: this._redis
+    });
+
+    await scheduler.waitUntilReady();
 
     const worker = new Worker(
       this.name,
@@ -57,6 +62,20 @@ export class PollQueue {
         connection: this._redis
       }
     );
+
+    await worker.waitUntilReady();
+
+    worker.on("failed", (job, error) => {
+      Sentry.captureException(error, (scope) => {
+        scope.setExtras({
+          ctx: "poll.queue -> worker",
+          debug_message: "failed to end poll",
+          poll: job.data
+        });
+
+        return scope;
+      });
+    });
 
     logger.info("poll worker listening".yellow);
   }

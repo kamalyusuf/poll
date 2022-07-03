@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@bull-board/api": "^4.0.0",
+    "@bull-board/express": "^4.0.0",
     "@kamalyb/errors": "^1.0.0",
     "@lifeomic/attempt": "^3.0.3",
     "@sentry/node": "^7.4.1",

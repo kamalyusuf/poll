@@ -50,6 +50,8 @@ class App {
 
     io.initialize(server);
 
+    deps.queue.poll.listen();
+
     return server;
   }
 

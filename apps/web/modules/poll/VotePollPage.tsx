@@ -19,13 +19,16 @@ import { ApiError, Poll, VotePollPayload, PollStatus } from "types";
 import { api } from "../../lib/api";
 import { useWrappedMutation } from "../../hooks/useWrappedMutation";
 import { BiUpvote } from "react-icons/bi";
-import TimeAgo from "react-timeago";
+import ReactTimeAgo from "react-timeago";
 import { AxiosError } from "axios";
 import { ErrorAlert } from "../../components/ErrorAlert";
 import { SharePollButton } from "./SharePollButton";
 import { NewPollButton } from "./NewPollButton";
 import { AbsoluteCenter } from "../../components/AbsoluteCenter";
 import { PollTimeRemaining } from "./PollTimeRemaining";
+import { useMounted } from "../../hooks/useMounted";
+
+const TimeAgo = ReactTimeAgo as any;
 
 const vote = async (id: string, payload: VotePollPayload) =>
   (
@@ -37,13 +40,17 @@ const vote = async (id: string, payload: VotePollPayload) =>
   ).data;
 
 export const VotePollPage = () => {
+  const mounted = useMounted();
   const router = useRouter();
-  const id = router.query.id as string | undefined;
+  const id: string | undefined =
+    typeof router.query.id === "string" ? router.query.id : undefined;
   const {
     data: poll,
     error,
     isLoading: isLoadingPoll
-  } = useQuery<Poll, AxiosError<ApiError>>(`/polls/${id}`, { enabled: !!id });
+  } = useQuery<Poll, AxiosError<ApiError>>(`/polls/${id}`, {
+    enabled: Boolean(id && mounted)
+  });
   const [value, setValue] = useState("");
   const { mutateAsync, isLoading } = useWrappedMutation<
     { poll: Poll; vid: string },
@@ -55,21 +62,16 @@ export const VotePollPage = () => {
   });
   const [ended, setEnded] = useState(poll?.status === PollStatus.ENDED);
 
-  if (isLoadingPoll) {
+  if (isLoadingPoll)
     return (
       <AbsoluteCenter>
         <Loader size="lg" color="indigo" />
       </AbsoluteCenter>
     );
-  }
 
-  if (error) {
-    return <ErrorAlert error={error} />;
-  }
+  if (error) return <ErrorAlert error={error} />;
 
-  if (!poll) {
-    return null;
-  }
+  if (!poll) return null;
 
   return (
     <Container size="md">
@@ -103,7 +105,6 @@ export const VotePollPage = () => {
             label={poll.title}
             required
             color="indigo"
-            variant="vertical"
             spacing="md"
             value={value}
             onChange={setValue}
@@ -119,9 +120,7 @@ export const VotePollPage = () => {
             <Button
               color="indigo"
               onClick={() => {
-                if (!value) {
-                  return;
-                }
+                if (!value) return;
 
                 mutateAsync({ option_id: value }).catch(() => {});
               }}

@@ -1,19 +1,7 @@
 import { MantineThemeOverride } from "@mantine/core";
 
-// color[6] is default
-// red = #DC2626
-// dark = #25262B
-
 export const theme: MantineThemeOverride = {
   primaryColor: "red",
-  /**
-   * @DEFAULT
-   */
-  // xs: 12,
-  // sm: 14,
-  // md: 16,
-  // lg: 18,
-  // xl: 20,
   fontSizes: {
     xl: 26,
     lg: 22,

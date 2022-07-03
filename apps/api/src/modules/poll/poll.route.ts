@@ -51,11 +51,18 @@ router.get(
   "/:id",
   validator.params(
     s.object<{ id: string }>({
-      id: s.string().custom((value) => {
-        if (!isValidObjectId(value)) throw new Error("invalid id");
+      id: s
+        .string()
+        .custom((value, helpers) => {
+          if (!isValidObjectId(value)) return helpers.error("any.custom");
 
-        return value;
-      })
+          return value;
+        })
+        .options({
+          messages: {
+            "any.custom": "invalid id"
+          }
+        })
     })
   ),
   async (req, res) => {

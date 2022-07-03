@@ -19,9 +19,11 @@ import { NewPollButton } from "./NewPollButton";
 import PollEndedAlert from "./PollEndedAlert";
 import { PollOption } from "./PollOption";
 import { SharePollButton } from "./SharePollButton";
-import TimeAgo from "react-timeago";
+import ReactTimeAgo from "react-timeago";
 import { AbsoluteCenter } from "../../components/AbsoluteCenter";
 import { PollTimeRemaining } from "./PollTimeRemaining";
+
+const TimeAgo = ReactTimeAgo as any;
 
 export const PollResultPage = () => {
   const router = useRouter();

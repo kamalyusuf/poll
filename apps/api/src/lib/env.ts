@@ -12,7 +12,7 @@ export interface Env {
 
 export const env = cleanEnv<Env>(process.env, {
   PORT: port(),
-  REDIS_URL: url({ devDefault: "redis://localhost:6479" }),
+  REDIS_URL: url({ devDefault: "redis://localhost:6379" }),
   MONGO_URL:
     process.env.NODE_ENV === "production"
       ? url()

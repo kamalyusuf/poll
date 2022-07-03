@@ -1,1 +1,1 @@
-export { CreatePollPage as default } from "../modules/polls/CreatePollPage";
+export { CreatePollPage as default } from "../modules/poll/CreatePollPage";

@@ -112,6 +112,6 @@ export class PollService {
 
     await redis.del(_id.toString());
 
-    return { _id, poll: this.findByIdWithAgg(_id) };
+    return { _id, poll: await this.findByIdWithAgg(_id) };
   }
 }

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { useQueryClient } from "react-query";
 import { Poll } from "types";
 import { useSocket } from "../../hooks/useSocket";
