@@ -1,0 +1,68 @@
+:root {
+  --toastify-color-info: #4f46e5;
+  --toastify-color-error: #dc2626;
+  --toastify-text-color-light: #25262b;
+  --toastify-color-success: #059669;
+  --toastify-color-warning: #d97706;
+  --toastify-toast-min-height: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+  width: 100%;
+  background-color: #101113;
+}
+
+#__next {
+  overflow-y: auto;
+}
+
+#nprogress {
+  position: relative;
+  z-index: 9999999;
+}
+
+#nprogress .bar {
+  background: #4f46e5 !important;
+  height: 3px !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #4f46e5, 0 0 5px #4f46e5 !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #4f46e5 !important;
+  border-left-color: #4f46e5 !important;
+}
+
+.span.indigo {
+  color: #216ba5;
+}
+
+.limbo {
+  border: 1px solid coral;
+}
+
+.react-datepicker {
+  &__day--selected {
+    background-color: #4f46e5 !important;
+  }
+
+  &-time__caption {
+    color: #4f46e5;
+    font-weight: bold;
+  }
+}
+
+.Toastify__toast-body {
+  font-size: 16px;
+}

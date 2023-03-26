@@ -1,0 +1,26 @@
+{
+  "name": "poll",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel --continue",
+    "api:dev": "turbo run dev --filter=api... --no-cache",
+    "api:build": "turbo run build --filter=api",
+    "web:dev": "turbo run dev --filter=web... --no-cache",
+    "web:build": "turbo run build --filter=web"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "turbo": "^1.4.5"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "packageManager": "yarn@1.22.19"
+}
