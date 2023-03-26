@@ -21,11 +21,15 @@ RUN yarn install
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
 
-RUN yarn turbo run build --filter=api...
+RUN yarn turbo run build --filter=api
+
 
 FROM node:alpine AS runner
+
 WORKDIR /app
 
 COPY --from=installer /app .
+
+ENV NODE_ENV production
 
 CMD node apps/api/dist/index.js
