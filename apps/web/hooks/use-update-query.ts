@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import produce, { Draft } from "immer";
+import { Draft, produce } from "immer";
 import { useCallback } from "react";
 
 export const useUpdateQuery = () => {

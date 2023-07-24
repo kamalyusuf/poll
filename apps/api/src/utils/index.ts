@@ -4,7 +4,6 @@ import consola from "consola";
 import { Express } from "express";
 import { Server } from "http";
 
-// default check for 5 minutes from now
 export const timeisafter = (time: Date, additional = 300000) => {
   const min = new Date().getTime() + additional;
   const difference = min - time.getTime();

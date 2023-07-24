@@ -1,10 +1,10 @@
 import consola from "consola";
 import { Server } from "http";
+import { mongo } from "./lib/mongo";
 import { app } from "./app";
 import { env } from "./lib/env";
 import { io } from "./lib/io";
 import { start } from "./utils";
-import { mongo } from "./lib/mongo";
 import { agenda } from "./lib/agenda";
 import "./poll/poll.agenda";
 
