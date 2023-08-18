@@ -8,8 +8,10 @@ import { NotFoundError } from "@kamalyb/errors";
 import { useglobalerrorhandler } from "./middlewares/error";
 import { router as pollrouter } from "./poll/poll.router";
 import { agenda } from "./lib/agenda";
-import { useexplorer, usepass, usesimplepass } from "mongoose-explorer";
+import { explore } from "mongoose-explore";
 import cookiesession from "cookie-session";
+import { simplepass, usepass } from "express-simple-pass";
+import { PollProps } from "./poll/poll.model";
 
 export const app = express();
 
@@ -41,13 +43,13 @@ app.use(
 
 app.get("/", (_req, res) => res.send({ ok: true, uptime: process.uptime() }));
 
-usesimplepass({
+simplepass({
   app,
   passkey: env.PASS_KEY,
-  redirect_path: "/"
+  redirect: "/"
 });
 
-useexplorer({
+explore({
   app,
   mongoose,
   rootpath: "/explorer",
@@ -56,23 +58,26 @@ useexplorer({
     Poll: {
       properties: {
         title: {
-          iseditable: false
+          editable: false
         },
         status: {
-          iseditable: false
+          editable: false
         },
         expires_at: {
-          iseditable: false
+          editable: false
         }
+      },
+      virtuals: {
+        votes: (poll: PollProps) => `${poll.options.reduce((acc, current) => acc + current.votes, 0)}`
       }
     },
     PollVote: {
       properties: {
         poll_id: {
-          iseditable: false
+          editable: false
         },
         vid: {
-          iseditable: false
+          editable: false
         }
       }
     }
