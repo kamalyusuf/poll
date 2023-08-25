@@ -46,8 +46,6 @@ export const usetransaction = async (
   const session = await mongoose.startSession();
 
   await session.withTransaction(fn);
-
-  await session.endSession();
 };
 
 export const start = ({ app, port }: { app: Express; port: number }) =>

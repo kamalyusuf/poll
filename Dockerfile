@@ -23,7 +23,6 @@ COPY turbo.json turbo.json
 
 RUN yarn turbo run build --filter=api
 
-
 FROM node:alpine AS runner
 
 WORKDIR /app

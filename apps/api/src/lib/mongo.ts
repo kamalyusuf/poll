@@ -21,9 +21,6 @@ mongoose.set("sanitizeProjection", true);
 mongoose.set("sanitizeFilter", true);
 mongoose.set("strict", "throw");
 mongoose.set("strictQuery", "throw");
-mongoose.SchemaTypes.String.cast(false);
-mongoose.SchemaTypes.Number.cast(false);
-mongoose.SchemaTypes.Boolean.cast(false);
 
 const maxattempts = 5;
 

@@ -16,8 +16,8 @@
     "web:build": "turbo run build --filter=web"
   },
   "devDependencies": {
-    "prettier": "^3.0.0",
-    "turbo": "^1.10.9"
+    "prettier": "^3.0.2",
+    "turbo": "^1.10.13"
   },
   "engines": {
     "node": ">=14.0.0"

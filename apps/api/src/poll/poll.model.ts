@@ -49,7 +49,7 @@ const pollschema = new mongoose.Schema<PollProps, {}, Methods>(
       required: true
     },
     status: {
-      type: String as any,
+      type: String,
       required: true,
       enum: ["active", "ended"],
       default: "active"

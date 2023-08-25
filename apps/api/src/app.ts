@@ -56,29 +56,9 @@ explore({
   authorize: usepass,
   models: {
     Poll: {
-      properties: {
-        title: {
-          editable: false
-        },
-        status: {
-          editable: false
-        },
-        expires_at: {
-          editable: false
-        }
-      },
       virtuals: {
-        votes: (poll: PollProps) => `${poll.options.reduce((acc, current) => acc + current.votes, 0)}`
-      }
-    },
-    PollVote: {
-      properties: {
-        poll_id: {
-          editable: false
-        },
-        vid: {
-          editable: false
-        }
+        votes: (poll: PollProps) =>
+          `${poll.options.reduce((total, option) => total + option.votes, 0)}`
       }
     }
   }
@@ -88,8 +68,8 @@ app.use("/agendash", usepass, require("agendash")(agenda));
 
 app.use("/api/polls", pollrouter);
 
-app.use((_, __, ___) => {
-  throw new NotFoundError("no route found");
+app.use((req, __, next) => {
+  next(new NotFoundError(`route: ${req.method} ${req.url} not found`));
 });
 
 app.use(useglobalerrorhandler);

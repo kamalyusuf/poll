@@ -27,11 +27,11 @@
     "express-simple-pass": "^1.0.3",
     "helmet": "^7.0.0",
     "joi": "^17.6.0",
-    "mongoose": "^7.4.0",
-    "mongoose-explore": "^2.0.0",
-    "mongoose-paginate-v2": "^1.7.23",
+    "mongoose": "^7.4.4",
+    "mongoose-explore": "^2.1.1",
+    "mongoose-paginate-v2": "^1.7.31",
     "pug": "^3.0.2",
-    "socket.io": "^4.7.1",
+    "socket.io": "^4.7.2",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -43,6 +43,6 @@
     "ts-node-dev": "^2.0.0",
     "tsconfig": "*",
     "types": "*",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   }
 }
