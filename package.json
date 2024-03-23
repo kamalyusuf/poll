@@ -1,26 +1,23 @@
 {
   "name": "poll",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "apps/*",
-      "packages/*"
-    ]
-  },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel --continue",
     "api:dev": "turbo run dev --filter=api... --no-cache",
     "api:build": "turbo run build --filter=api",
+    "api:lint": "turbo lint --filter api",
     "web:dev": "turbo run dev --filter=web... --no-cache",
-    "web:build": "turbo run build --filter=web"
+    "web:build": "turbo run build --filter=web",
+    "web:lint": "turbo lint --filter web"
   },
   "devDependencies": {
-    "prettier": "^3.0.2",
-    "turbo": "^1.10.13"
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "prettier": "^3.2.5",
+    "turbo": "^1.13.0"
   },
   "engines": {
-    "node": ">=14.0.0"
-  },
-  "packageManager": "yarn@1.22.19"
+    "node": ">=18"
+  }
 }

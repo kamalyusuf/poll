@@ -1,8 +1,8 @@
 import mongoose, { Types, Document } from "mongoose";
 import { env } from "../lib/env";
-import consola from "consola";
-import { Express } from "express";
-import { Server } from "http";
+import { consola } from "consola";
+import { type Express } from "express";
+import { type Server } from "node:http";
 
 export const timeisafter = (time: Date, additional = 300000) => {
   const min = new Date().getTime() + additional;
@@ -11,15 +11,15 @@ export const timeisafter = (time: Date, additional = 300000) => {
   return Math.sign(difference) === 1;
 };
 
-export const isvalidobjectid = (str: string) => Types.ObjectId.isValid(str);
+export const isobjectid = (str: string) => Types.ObjectId.isValid(str);
 
 export const objectid = (str: string) => {
-  if (!isvalidobjectid(str)) throw new Error("invalid id");
+  if (!isobjectid(str)) throw new Error("invalid id");
 
   return new Types.ObjectId(str);
 };
 
-export const isvalidiso = (date: string) =>
+export const isisodate = (date: string) =>
   /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(date);
 
 export const ismongoosedoc = (doc: object) => doc instanceof Document;
@@ -60,3 +60,19 @@ export const start = ({ app, port }: { app: Express; port: number }) =>
 
     server.on("error", reject);
   });
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = () => {};
+
+export const aspromise = <T>(arg: T | (() => T)) =>
+  new Promise<T>((resolve, reject) => {
+    try {
+      resolve(typeof arg === "function" ? (arg as () => T)() : arg);
+    } catch (e) {
+      reject(e as Error);
+    }
+  });
+
+export const saferun = (fn: () => void | Promise<void>) => {
+  aspromise(fn()).then(noop).catch(noop);
+};

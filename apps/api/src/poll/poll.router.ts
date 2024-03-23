@@ -8,12 +8,7 @@ import { validate, version, v4 } from "uuid";
 import { PollVote } from "./poll-vote.model";
 import { agenda } from "../lib/agenda";
 import { io } from "../lib/io";
-import {
-  isvalidiso,
-  isvalidobjectid,
-  timeisafter,
-  usetransaction
-} from "../utils";
+import { isisodate, isobjectid, timeisafter, usetransaction } from "../utils";
 
 export const router = Router();
 
@@ -26,10 +21,10 @@ router.post(
       title: Joi.string().min(2),
       options: Joi.array().min(2).items(Joi.string()),
       expires_at: Joi.string()
-        .custom((value, helpers) =>
-          isvalidiso(value) ? value : helpers.error("custom.invalid")
+        .custom((value: string, helpers) =>
+          isisodate(value) ? value : helpers.error("custom.invalid")
         )
-        .custom((value, helpers) =>
+        .custom((value: string, helpers) =>
           timeisafter(new Date(value)) ? helpers.error("custom.after") : value
         )
     }).options({
@@ -109,8 +104,8 @@ router.get(
   celebrate({
     body: Joi.object({
       id: Joi.string()
-        .custom((value, helpers) =>
-          isvalidobjectid(value) ? value : helpers.error("any.custom")
+        .custom((value: string, helpers) =>
+          isobjectid(value) ? value : helpers.error("any.custom")
         )
         .options({
           messages: {

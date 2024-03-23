@@ -7,5 +7,3 @@ export const env = cleanEnv(process.env, {
   HOST: str(),
   PASS_KEY: str()
 });
-
-console.log(env);

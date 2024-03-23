@@ -8,10 +8,10 @@ import { NotFoundError } from "@kamalyb/errors";
 import { useglobalerrorhandler } from "./middlewares/error";
 import { router as pollrouter } from "./poll/poll.router";
 import { agenda } from "./lib/agenda";
-import { explore } from "mongoose-explore";
+import { MongooseExplorer } from "mongoose-explore";
 import cookiesession from "cookie-session";
 import { simplepass, usepass } from "express-simple-pass";
-import { PollProps } from "./poll/poll.model";
+import type { PollProps } from "./poll/poll.model";
 
 export const app = express();
 
@@ -49,21 +49,24 @@ simplepass({
   redirect: "/"
 });
 
-explore({
-  app,
+const explorer = new MongooseExplorer({
   mongoose,
   rootpath: "/explorer",
-  authorize: usepass,
-  models: {
+  resources: {
     Poll: {
       virtuals: {
         votes: (poll: PollProps) =>
-          `${poll.options.reduce((total, option) => total + option.votes, 0)}`
+          poll.options
+            .reduce((total, option) => total + option.votes, 0)
+            .toString()
       }
     }
   }
 });
 
+app.use(explorer.rootpath, usepass, explorer.router());
+
+// eslint-disable-next-line
 app.use("/agendash", usepass, require("agendash")(agenda));
 
 app.use("/api/polls", pollrouter);
@@ -74,4 +77,5 @@ app.use((req, __, next) => {
 
 app.use(useglobalerrorhandler);
 
+// eslint-disable-next-line
 require("express-list-routes")(app);

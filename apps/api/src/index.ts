@@ -1,5 +1,5 @@
-import consola from "consola";
-import { Server } from "http";
+import { consola } from "consola";
+import { type Server } from "node:http";
 import { mongo } from "./lib/mongo";
 import { app } from "./app";
 import { env } from "./lib/env";

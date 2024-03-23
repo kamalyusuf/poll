@@ -1,6 +1,6 @@
-import { Types } from "mongoose";
+import type { Types } from "mongoose";
 import { agenda } from "../lib/agenda";
-import { Job } from "agenda";
+import { type Job } from "agenda";
 import { Poll } from "./poll.model";
 import { io } from "../lib/io";
 

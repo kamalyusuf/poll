@@ -1,5 +1,5 @@
 import { retry } from "@lifeomic/attempt";
-import consola from "consola";
+import { consola } from "consola";
 import mongoose from "mongoose";
 import paginate from "mongoose-paginate-v2";
 

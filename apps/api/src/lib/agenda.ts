@@ -1,6 +1,6 @@
-import Agenda from "agenda";
+import { Agenda } from "agenda";
 import { env } from "./env";
-import consola from "consola";
+import { consola } from "consola";
 
 export const agenda = new Agenda({
   db: {

@@ -1,6 +1,7 @@
-import { Server } from "http";
-import { Socket, Server as SocketServer } from "socket.io";
+import { type Server } from "node:http";
+import { type Socket, Server as SocketServer } from "socket.io";
 import { env } from "./env";
+import { saferun } from "../utils";
 
 class SocketIO {
   private io?: SocketServer;
@@ -32,11 +33,11 @@ class SocketIO {
 
   private onconnection(socket: Socket) {
     socket.on("join poll", (id: string) => {
-      socket.join(id);
+      saferun(() => socket.join(id));
     });
 
     socket.on("leave poll", (id: string) => {
-      socket.leave(id);
+      saferun(() => socket.leave(id));
     });
   }
 }

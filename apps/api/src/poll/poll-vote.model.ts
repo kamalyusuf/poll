@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
-interface Props {
+interface PollVoteProps {
   _id: mongoose.Types.ObjectId;
   poll_id: mongoose.Types.ObjectId;
   vid: string;
 }
 
-const schema = new mongoose.Schema<Props>(
+const schema = new mongoose.Schema<PollVoteProps>(
   {
     poll_id: {
       type: mongoose.Schema.Types.ObjectId,

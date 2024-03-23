@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { PollStatus } from "types";
+import type { PollStatus } from "types";
 
 interface OptionsProps {
   _id: mongoose.Types.ObjectId;
@@ -38,7 +38,7 @@ const optionschema = new mongoose.Schema<OptionsProps>(
   { timestamps: false, id: false, versionKey: false }
 );
 
-const pollschema = new mongoose.Schema<PollProps, {}, Methods>(
+const pollschema = new mongoose.Schema<PollProps, object, Methods>(
   {
     title: {
       type: String,
@@ -77,9 +77,7 @@ const pollschema = new mongoose.Schema<PollProps, {}, Methods>(
 );
 
 pollschema.method("isactive", function () {
-  const poll = this as PollDoc;
-
-  return poll.status === "active";
+  return this.status === "active";
 });
 
 pollschema.virtual("total_votes").get(function () {
