@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/unbound-method */
+import "@mantine/core/styles.css";
 import "../styles/globals.scss";
 import "nprogress/nprogress.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,7 +14,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { SocketProvider } from "../modules/socket/socket-provider";
 import { SocketHandler } from "../modules/socket/socket-handler";
-import { AppProps } from "next/app";
+import { type AppProps } from "next/app";
 import { api } from "../lib/api";
 
 if (!process.env.NEXT_PUBLIC_API_URL)
@@ -35,7 +37,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             refetchOnReconnect: false,
             refetchOnMount: false,
             queryFn: async ({ queryKey }) =>
-              (await api.get(`${queryKey[0]}`)).data
+              (await api.get<unknown>(`${queryKey[0]}`)).data
           },
           mutations: {
             retry: false
@@ -53,7 +55,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         />
       </Head>
 
-      <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
+      <MantineProvider theme={theme}>
         <SocketProvider>
           <Component {...pageProps} />
           <ToastContainer

@@ -1,8 +1,8 @@
-import type { MantineThemeOverride } from "@mantine/core";
+import { createTheme } from "@mantine/core";
 import { styles } from "./styles";
 import { colors } from "./colors";
 
-export const theme: MantineThemeOverride = {
+export const theme = createTheme({
   fontFamily: "Finlandica, sans-serif",
   primaryColor: "indigo",
   primaryShade: 6,
@@ -15,4 +15,4 @@ export const theme: MantineThemeOverride = {
   },
   components: styles,
   colors
-};
+});

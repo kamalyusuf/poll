@@ -21,7 +21,7 @@ app.use(
     contentSecurityPolicy: {
       useDefaults: true,
       directives: {
-        "script-src": ["'unsafe-inline'"]
+        "script-src": ["'unsafe-inline'", "https://cdn.jsdelivr.net"]
       }
     }
   })
@@ -54,11 +54,25 @@ const explorer = new MongooseExplorer({
   rootpath: "/explorer",
   resources: {
     Poll: {
+      creatable: false,
+      editable: false,
+      deletable: false,
       virtuals: {
         votes: (poll: PollProps) =>
           poll.options
             .reduce((total, option) => total + option.votes, 0)
             .toString()
+      },
+      bulk_delete: {
+        enabled: false
+      }
+    },
+    PollVote: {
+      creatable: false,
+      editable: false,
+      deletable: false,
+      bulk_delete: {
+        enabled: false
       }
     }
   }

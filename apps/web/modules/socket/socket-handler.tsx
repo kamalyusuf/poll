@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { Poll } from "types";
-import { useSocket } from "../../hooks/use-socket";
+import { type Poll } from "types";
 import { useUpdateQuery } from "../../hooks/use-update-query";
+import { useSocket } from "./socket-provider";
 
 export const SocketHandler = () => {
   const socket = useSocket();
@@ -13,20 +13,14 @@ export const SocketHandler = () => {
     if (!socket) return;
 
     socket.on("poll voted", (poll: Poll) => {
-      updatequery<Poll>({
-        key: [`/polls/${poll._id}`],
-        updater: (draft) => {
-          Object.assign(draft, poll);
-        }
+      updatequery<Poll>([`/polls/${poll._id}`], (draft) => {
+        Object.assign(draft, poll);
       });
     });
 
     socket.on("poll ended", (poll: Poll) => {
-      updatequery<Poll>({
-        key: [`/polls/${poll._id}`],
-        updater: (draft) => {
-          Object.assign(draft, poll);
-        }
+      updatequery<Poll>([`/polls/${poll._id}`], (draft) => {
+        Object.assign(draft, poll);
       });
     });
 

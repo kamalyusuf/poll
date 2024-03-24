@@ -13,16 +13,16 @@ import {
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Poll } from "types";
+import { type Poll } from "types";
 import { NewPollButton } from "./new-poll-button";
 import { PollEndedAlert } from "./poll-ended-alert";
 import { PollOption } from "./poll-option";
 import { SharePollButton } from "./share-poll-button";
 import { AbsoluteCenter } from "../../components/absolute-center";
 import { PollTimeRemaining } from "./poll-time-remaining";
-import { TimeAgo } from "../../components/time-ago";
+import TimeAgo from "react-timeago";
 import { Alert } from "../../components/alert";
-import { AxiosApiError } from "../../types";
+import { type AxiosApiError } from "../../types";
 
 export const PollResultPage = () => {
   const router = useRouter();
@@ -32,15 +32,17 @@ export const PollResultPage = () => {
     data: poll,
     isLoading,
     error
-  } = useQuery<Poll, AxiosApiError>([`/polls/${id}`], { enabled: !!id });
+  } = useQuery<Poll, AxiosApiError>({
+    queryKey: [`/polls/${id}`],
+    enabled: !!id
+  });
 
-  if (isLoading) {
+  if (isLoading)
     return (
       <AbsoluteCenter>
         <Loader size="lg" color="indigo" />
       </AbsoluteCenter>
     );
-  }
 
   if (error) return <Alert type="error" message={error} />;
 
@@ -59,7 +61,7 @@ export const PollResultPage = () => {
             marginRight: "auto"
           }}
         >
-          <Stack spacing="sm">
+          <Stack gap="sm">
             {ended || poll.status === "ended" ? (
               <PollEndedAlert />
             ) : (
@@ -68,11 +70,11 @@ export const PollResultPage = () => {
                 oncomplete={() => setended(true)}
               />
             )}
-            <Title color="indigo" order={3}>
+            <Title c="indigo" order={3}>
               {poll.title}
             </Title>
             <Divider color="gray" />
-            <Stack spacing={5}>
+            <Stack gap={5}>
               {poll.options.map((option) => (
                 <PollOption
                   key={option._id}
@@ -81,11 +83,11 @@ export const PollResultPage = () => {
                 />
               ))}
               <Space />
-              <Text sx={{ alignSelf: "end" }} weight={700} size="sm">
+              <Text style={{ alignSelf: "end" }} fw={700} size="sm">
                 {poll.total_votes} total vote(s)
               </Text>
               <Space h="md" />
-              <Group position="apart" style={{ width: "100%" }}>
+              <Group justify="space-between" style={{ width: "100%" }}>
                 <Button
                   color="indigo"
                   onClick={() => router.push(`/${poll._id}`)}
@@ -96,7 +98,7 @@ export const PollResultPage = () => {
                 <SharePollButton />
               </Group>
               <Space h="md" />
-              <Group position="apart" style={{ width: "100%" }}>
+              <Group justify="space-between" style={{ width: "100%" }}>
                 <Text size="sm">
                   last updated <TimeAgo date={poll.updated_at} />
                 </Text>

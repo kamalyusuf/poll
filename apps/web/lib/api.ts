@@ -1,5 +1,5 @@
-import axios, { AxiosError } from "axios";
-import { parseapierror } from "../utils/error";
+import axios, { type AxiosError } from "axios";
+import { parseapierror } from "../utils";
 import { toast } from "react-toastify";
 import type { ApiError } from "types";
 
@@ -19,7 +19,7 @@ api.interceptors.request.use((config) => {
 
 api.interceptors.response.use(
   (response) => {
-    const vid = response.data.vid;
+    const vid = (response.data as Record<string, string>).vid;
 
     if (vid && !localStorage.getItem("vid")) localStorage.setItem("vid", vid);
 

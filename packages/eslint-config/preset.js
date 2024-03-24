@@ -21,7 +21,9 @@ module.exports = {
     "func-names": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": "off"
+    "@typescript-eslint/no-shadow": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/no-non-null-assertion": "off"
   },
   overrides: [
     {

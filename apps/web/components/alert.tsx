@@ -1,29 +1,27 @@
 import { Center, Group, Paper, Text, Container } from "@mantine/core";
-import { c } from "../utils/constants";
 import {
   IconInfoCircle,
   IconCircleCheck,
-  Icon,
   IconAlertTriangle,
   IconAlertCircle
 } from "@tabler/icons-react";
-import { parseapierror } from "../utils/error";
-import { AxiosError } from "axios";
+import { parseapierror, c } from "../utils";
+import { type AxiosError } from "axios";
 import type { ApiError } from "types";
 
-interface Props {
+interface AlertProps {
   type: "success" | "error" | "warning" | "info";
-  message: AxiosError<ApiError> | string | Error;
+  message: AxiosError<ApiError> | string;
 }
 
-const icons: Record<Props["type"], Icon> = {
+const icons = {
   warning: IconAlertTriangle,
   success: IconCircleCheck,
   info: IconInfoCircle,
   error: IconAlertCircle
 };
 
-export const Alert = ({ type, message }: Props) => {
+export const Alert = ({ type, message }: AlertProps) => {
   const color = c.colors[type];
   const Icon = icons[type];
 
@@ -39,27 +37,28 @@ export const Alert = ({ type, message }: Props) => {
           shadow="md"
           p={20}
           radius="md"
-          sx={{
+          style={{
             backgroundColor: c.colors.shade,
             borderColor: c.colors.shade
           }}
         >
-          <Group spacing={20} align="center">
+          <Group gap={20} align="center">
             <Icon size={28} strokeWidth={2} color={color} />
-            <Text weight={500} size="lg" style={{ color }}>
-              {msg(message)}
-            </Text>
+
+            {typeof message === "string" ? (
+              <Text fw={500} size="lg" c={color}>
+                {message}
+              </Text>
+            ) : (
+              parseapierror(message).map((m) => (
+                <Text fw={500} size="lg" c={color}>
+                  {m}
+                </Text>
+              ))
+            )}
           </Group>
         </Paper>
       </Center>
     </Container>
   );
 };
-
-function msg(message: Props["message"]): string {
-  if (typeof message === "string") return message;
-
-  if (message instanceof AxiosError) return parseapierror(message)[0];
-
-  return message.message;
-}

@@ -9,7 +9,7 @@ export const SharePollButton = ({ disabled }: { disabled?: boolean }) => {
     <Button
       color="indigo"
       variant="light"
-      leftIcon={<AiOutlineShareAlt />}
+      leftSection={<AiOutlineShareAlt />}
       disabled={disabled}
       onClick={() => {
         clipboard.copy(window.location);

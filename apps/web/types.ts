@@ -1,6 +1,6 @@
-import { AxiosError } from "axios";
-import { ApiError as ApiTypeError } from "types";
-import { NextPage } from "next";
+import { type AxiosError } from "axios";
+import { type ApiError as ApiTypeError } from "types";
+import { type NextPage } from "next";
 
 export type AxiosApiError = AxiosError<ApiTypeError>;
 

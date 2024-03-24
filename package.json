@@ -2,13 +2,14 @@
   "name": "poll",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel --continue",
-    "api:dev": "turbo run dev --filter=api... --no-cache",
-    "api:build": "turbo run build --filter=api",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "api:dev": "turbo dev --filter=api... --no-cache",
+    "api:build": "turbo build --filter=api",
     "api:lint": "turbo lint --filter api",
-    "web:dev": "turbo run dev --filter=web... --no-cache",
-    "web:build": "turbo run build --filter=web",
+    "web:dev": "turbo dev --filter=web... --no-cache",
+    "web:build": "turbo build --filter=web",
     "web:lint": "turbo lint --filter web"
   },
   "devDependencies": {
@@ -19,5 +20,6 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "packageManager": "pnpm@8.12.1"
 }

@@ -1,14 +1,6 @@
-import type { CSSObject, MantineTheme } from "@mantine/core";
+import type { MantineTheme, MantineThemeComponents } from "@mantine/core";
 
-interface ThemeComponent {
-  defaultProps?: Record<string, any>;
-  classNames?: Record<string, string>;
-  styles?:
-    | Record<string, CSSObject>
-    | ((theme: MantineTheme, params: any) => Record<string, CSSObject>);
-}
-
-export const styles: Record<string, ThemeComponent> = {
+export const styles: MantineThemeComponents = {
   TextInput: {
     styles: (theme: MantineTheme) => ({
       input: {

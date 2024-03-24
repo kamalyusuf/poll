@@ -14,27 +14,18 @@ import {
 } from "@mantine/core";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Poll, VotePollPayload } from "types";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { type Poll, type VotePollPayload } from "types";
 import { api } from "../../lib/api";
-import { useWrappedMutation } from "../../hooks/use-wrapped-mutation";
 import { BiUpvote } from "react-icons/bi";
 import { SharePollButton } from "./share-poll-button";
 import { NewPollButton } from "./new-poll-button";
 import { AbsoluteCenter } from "../../components/absolute-center";
 import { PollTimeRemaining } from "./poll-time-remaining";
-import { TimeAgo } from "../../components/time-ago";
+import TimeAgo from "react-timeago";
 import { Alert } from "../../components/alert";
-import { AxiosApiError } from "../../types";
+import { type AxiosApiError } from "../../types";
 import { useUpdateQuery } from "../../hooks/use-update-query";
-
-const vote = async (poll_id: string, payload: VotePollPayload) =>
-  (
-    await api.put<{ poll: Poll; vid: string }>(
-      `/polls/${poll_id}/vote`,
-      payload
-    )
-  ).data;
 
 export const VotePollPage = () => {
   const router = useRouter();
@@ -45,11 +36,23 @@ export const VotePollPage = () => {
     data: poll,
     error,
     isLoading
-  } = useQuery<Poll, AxiosApiError>([`/polls/${id}`], { enabled: !!id });
-  const mutation = useWrappedMutation<
+  } = useQuery<Poll, AxiosApiError>({
+    queryKey: [`/polls/${id}`],
+    enabled: !!id
+  });
+  const mutation = useMutation<
     { poll: Poll; vid: string },
+    AxiosApiError,
     VotePollPayload
-  >((variables) => vote(poll?._id ?? "", variables));
+  >({
+    mutationFn: async (variables) =>
+      (
+        await api.put<{ poll: Poll; vid: string }>(
+          `/polls/${poll?._id}/vote`,
+          variables
+        )
+      ).data
+  });
   const [ended, setended] = useState(poll?.status === "ended");
   const updatequery = useUpdateQuery();
 
@@ -77,9 +80,9 @@ export const VotePollPage = () => {
             marginRight: "auto"
           }}
         >
-          <Stack spacing="xs">
+          <Stack gap="xs">
             <Box>
-              <Title color="indigo" align="center" order={3}>
+              <Title c="indigo" ta="center" order={3}>
                 vote
               </Title>
               <Divider color="dark" />
@@ -95,7 +98,7 @@ export const VotePollPage = () => {
               onChange={setValue}
               withAsterisk
             >
-              <Stack spacing={12}>
+              <Stack gap={12}>
                 {poll.options.map((option) => (
                   <Radio
                     key={option._id}
@@ -108,33 +111,28 @@ export const VotePollPage = () => {
             </Radio.Group>
             <Space />
 
-            <Group position="apart">
+            <Group justify="space-between">
               <Button
                 color="indigo"
                 onClick={() => {
                   if (!value) return;
 
-                  mutation
-                    .mutateAsync(
-                      { option_id: value },
-                      {
-                        onSuccess: ({ poll }) => {
-                          updatequery<Poll>({
-                            key: [`/polls/${poll._id}`],
-                            updater: (draft) => {
-                              Object.assign(draft, poll);
-                            }
-                          });
+                  mutation.mutate(
+                    { option_id: value },
+                    {
+                      onSuccess: ({ poll }) => {
+                        updatequery<Poll>([`/polls/${poll._id}`], (draft) => {
+                          Object.assign(draft, poll);
+                        });
 
-                          router.replace(`/${poll._id}/r`);
-                        }
+                        void router.replace(`/${poll._id}/r`);
                       }
-                    )
-                    .catch(() => {});
+                    }
+                  );
                 }}
-                loading={mutation.isLoading}
-                disabled={mutation.isLoading || ended}
-                leftIcon={<BiUpvote />}
+                loading={mutation.isPending}
+                disabled={mutation.isPending || ended}
+                leftSection={<BiUpvote />}
               >
                 vote
               </Button>
@@ -148,9 +146,9 @@ export const VotePollPage = () => {
               </Button>
             </Group>
             <Space />
-            <Group position="apart">
-              <Text size="sm" color="indigo" style={{ fontWeight: 500 }}>
-                Created <TimeAgo date={poll.created_at} />
+            <Group justify="space-between">
+              <Text size="sm" c="indigo" fw={500}>
+                created <TimeAgo date={poll.created_at} />
               </Text>
               <NewPollButton />
             </Group>

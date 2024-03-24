@@ -7,7 +7,7 @@ export const NewPollButton = () => {
 
   return (
     <Button
-      leftIcon={<MdOutlineAdd />}
+      leftSection={<MdOutlineAdd />}
       color="dark"
       onClick={() => router.push("/")}
     >

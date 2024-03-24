@@ -1,25 +1,28 @@
-import { io, Socket } from "socket.io-client";
+import { io, type Socket } from "socket.io-client";
 import {
   type ReactNode,
   useEffect,
   useMemo,
   useState,
-  createContext
+  createContext,
+  useContext
 } from "react";
 
-type Context = {
+interface Context {
   socket: Socket | null;
-};
+}
 
-export const SocketContext = createContext<Context>({
+const SocketContext = createContext<Context>({
   socket: null
 });
+
+export const useSocket = () => useContext(SocketContext).socket;
 
 export const SocketProvider = ({ children }: { children: ReactNode }) => {
   const [socket, setsocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    const s = io(process.env.NEXT_PUBLIC_API_URL as string, {
+    const s = io(process.env.NEXT_PUBLIC_API_URL!, {
       rememberUpgrade: true,
       autoConnect: true,
       reconnectionAttempts: 2,

@@ -1,7 +1,7 @@
 import { Group, Text } from "@mantine/core";
-import { Option } from "types";
+import { type Option } from "types";
 
-interface Props {
+interface PollOptionProps {
   option: Option;
   total: number;
 }
@@ -9,12 +9,12 @@ interface Props {
 const percentage = (votes: number, total: number) =>
   Math.round((votes / total) * 100) || 0;
 
-export const PollOption = ({ option, total }: Props) => {
+export const PollOption = ({ option, total }: PollOptionProps) => {
   return (
-    <Group position="apart" style={{ width: "100%" }} align="center">
+    <Group justify="space-between" style={{ width: "100%" }} align="center">
       <Text>{option.value}</Text>
       <Group align="center">
-        <Text weight={700}>{option.votes} vote(s)</Text>
+        <Text fw={700}>{option.votes} vote(s)</Text>
         <Text>{`(${percentage(option.votes, total)}%)`}</Text>
       </Group>
     </Group>

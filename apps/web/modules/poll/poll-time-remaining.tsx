@@ -1,4 +1,4 @@
-import { ComponentType } from "react";
+import { type ComponentType } from "react";
 import ReactCountdown, { type CountdownProps } from "react-countdown";
 import { PollEndedAlert } from "./poll-ended-alert";
 import { Text } from "@mantine/core";
@@ -23,7 +23,7 @@ export const PollTimeRemaining = ({
         if (completed) return <PollEndedAlert />;
 
         return (
-          <Text color="yellow" style={{ fontStyle: "italic", fontSize: 16 }}>
+          <Text c="yellow" fs="italic" fz={16}>
             ends in {hours}:{minutes}:{seconds}
           </Text>
         );
