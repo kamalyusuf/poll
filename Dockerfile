@@ -5,6 +5,7 @@ RUN apk update
 
 WORKDIR /app
 RUN yarn global add turbo
+RUN yarn global add pnpm
 COPY . .
 RUN turbo prune --scope=api --docker
 
@@ -15,13 +16,15 @@ WORKDIR /app
 
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/yarn.lock ./yarn.lock
-RUN yarn install
+# COPY --from=builder /app/out/yarn.lock ./yarn.lock
+COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+RUN pnpm install
 
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
 
-RUN yarn turbo run build --filter=api
+# RUN yarn turbo run build --filter=api
+RUN pnpm turbo run build --filter=api
 
 FROM node:alpine AS runner
 
