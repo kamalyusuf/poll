@@ -21,6 +21,7 @@ router.post(
       title: Joi.string().min(2),
       options: Joi.array().min(2).items(Joi.string()),
       expires_at: Joi.string()
+        .optional()
         .custom((value: string, helpers) =>
           isisodate(value) ? value : helpers.error("custom.invalid")
         )
@@ -43,7 +44,8 @@ router.post(
       options: body.options.map((option) => ({ value: option }))
     });
 
-    await agenda.schedule(poll.expires_at, "end poll", { poll_id: poll._id });
+    if (poll.expires_at)
+      await agenda.schedule(poll.expires_at, "end poll", { poll_id: poll._id });
 
     res.status(201).send(poll);
   }

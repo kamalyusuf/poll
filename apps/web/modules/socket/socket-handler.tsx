@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { type Poll } from "types";
+import type { Poll } from "types";
 import { useUpdateQuery } from "../../hooks/use-update-query";
 import { useSocket } from "./socket-provider";
 

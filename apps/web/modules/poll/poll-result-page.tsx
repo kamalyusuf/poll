@@ -65,16 +65,18 @@ export const PollResultPage = () => {
             {ended || poll.status === "ended" ? (
               <PollEndedAlert />
             ) : (
-              <PollTimeRemaining
-                time={poll.expires_at}
-                oncomplete={() => setended(true)}
-              />
+              !!poll.expires_at && (
+                <PollTimeRemaining
+                  time={poll.expires_at}
+                  oncomplete={() => setended(true)}
+                />
+              )
             )}
             <Title c="indigo" order={3}>
               {poll.title}
             </Title>
             <Divider color="gray" />
-            <Stack gap={5}>
+            <Stack gap={12}>
               {poll.options.map((option) => (
                 <PollOption
                   key={option._id}
@@ -82,29 +84,29 @@ export const PollResultPage = () => {
                   total={poll.total_votes}
                 />
               ))}
-              <Space />
-              <Text style={{ alignSelf: "end" }} fw={700} size="sm">
-                {poll.total_votes} total vote(s)
-              </Text>
-              <Space h="md" />
-              <Group justify="space-between" style={{ width: "100%" }}>
-                <Button
-                  color="indigo"
-                  onClick={() => router.push(`/${poll._id}`)}
-                  disabled={ended || poll.status === "ended"}
-                >
-                  vote
-                </Button>
-                <SharePollButton />
-              </Group>
-              <Space h="md" />
-              <Group justify="space-between" style={{ width: "100%" }}>
-                <Text size="sm">
-                  last updated <TimeAgo date={poll.updated_at} />
-                </Text>
-                <NewPollButton />
-              </Group>
             </Stack>
+            <Space />
+            <Text style={{ alignSelf: "end" }} fw={700} size="sm">
+              total votes: {poll.total_votes}
+            </Text>
+            <Space h="md" />
+            <Group justify="space-between" style={{ width: "100%" }}>
+              <Button
+                color="indigo"
+                onClick={() => router.push(`/${poll._id}`)}
+                disabled={ended || poll.status === "ended"}
+              >
+                vote
+              </Button>
+              <SharePollButton />
+            </Group>
+            <Space h="md" />
+            <Group justify="space-between" style={{ width: "100%" }}>
+              <Text size="sm">
+                last updated <TimeAgo date={poll.updated_at} />
+              </Text>
+              <NewPollButton />
+            </Group>
           </Stack>
         </Paper>
       </Container>

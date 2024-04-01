@@ -10,7 +10,8 @@ import {
   ScrollArea,
   Stack,
   Title,
-  Space
+  Space,
+  CloseButton
 } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { AbsoluteCenter } from "../../components/absolute-center";
@@ -37,7 +38,7 @@ export const CreatePollPage = () => {
     initialValues: {
       title: "",
       options: ["", ""],
-      expires_at: new Date()
+      expires_at: null as null | Date
     }
   });
 
@@ -81,7 +82,9 @@ export const CreatePollPage = () => {
     mutation.mutate(
       {
         ...values,
-        expires_at: values.expires_at.toISOString()
+        expires_at: values.expires_at
+          ? values.expires_at.toISOString()
+          : undefined
       },
       {
         onSuccess: (poll) => {
@@ -155,9 +158,18 @@ export const CreatePollPage = () => {
               <DateTimePicker
                 label="ends"
                 placeholder="pick date"
-                required
                 {...form.getInputProps("expires_at")}
                 valueFormat="MMMM D, YYYY h:mm A"
+                {...(form.values.expires_at && {
+                  rightSection: (
+                    <CloseButton
+                      onClick={() => {
+                        if (form.values.expires_at)
+                          form.setFieldValue("expires_at", null);
+                      }}
+                    />
+                  )
+                })}
                 minDate={sd}
                 maxDate={dayjs(sd).add(7, "days").toDate()}
                 onChange={(value) => {
@@ -172,7 +184,6 @@ export const CreatePollPage = () => {
                   mutation.isPending ||
                   form.values.options.length < 2 ||
                   !form.values.title.trim() ||
-                  !form.values.expires_at ||
                   form.values.options.some((option) => !option)
                 }
                 loading={mutation.isPending}

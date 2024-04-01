@@ -3,7 +3,7 @@ export type PollStatus = "active" | "ended";
 export interface CreatePollPayload {
   title: string;
   options: string[];
-  expires_at: string;
+  expires_at?: string;
 }
 
 export interface VotePollPayload {
@@ -22,7 +22,7 @@ export interface Poll {
   options: Option[];
   status: PollStatus;
   total_votes: number;
-  expires_at: string;
+  expires_at?: string;
   created_at: string;
   updated_at: string;
 }

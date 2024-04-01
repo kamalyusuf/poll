@@ -12,7 +12,7 @@ export interface PollProps {
   title: string;
   options: OptionsProps[];
   status: PollStatus;
-  expires_at: Date;
+  expires_at?: Date;
   created_at: Date;
   updated_at: Date;
 }
@@ -54,10 +54,7 @@ const pollschema = new mongoose.Schema<PollProps, object, Methods>(
       enum: ["active", "ended"],
       default: "active"
     },
-    expires_at: {
-      type: Date,
-      required: true
-    }
+    expires_at: Date
   },
   {
     id: false,

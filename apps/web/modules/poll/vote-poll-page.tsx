@@ -87,10 +87,13 @@ export const VotePollPage = () => {
               </Title>
               <Divider color="dark" />
             </Box>
-            <PollTimeRemaining
-              time={poll.expires_at}
-              oncomplete={() => setended(true)}
-            />
+
+            {!!poll.expires_at && (
+              <PollTimeRemaining
+                time={poll.expires_at}
+                oncomplete={() => setended(true)}
+              />
+            )}
 
             <Radio.Group
               label={poll.title}
