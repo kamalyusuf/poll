@@ -13,7 +13,7 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*",
+    "tsconfig": "*",
     "typescript": "^5.4.3"
   }
 }

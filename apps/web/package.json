@@ -41,8 +41,8 @@
     "postcss": "^8.4.38",
     "postcss-preset-mantine": "^1.13.0",
     "postcss-simple-vars": "^7.0.1",
-    "tsconfig": "workspace:*",
-    "types": "workspace:*",
+    "tsconfig": "*",
+    "types": "*",
     "typescript": "^5.4.3"
   }
 }

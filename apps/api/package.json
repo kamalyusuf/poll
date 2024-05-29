@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsup",
-    "devx": "tsx watch --clear-screen=false -r dotenv/config src/index.ts",
+    "devt": "tsup",
+    "dev": "tsx watch --clear-screen=false -r dotenv/config src/index.ts",
     "build": "rimraf dist && tsc",
     "lint": "eslint src/ --fix"
   },
@@ -21,7 +21,6 @@
     "consola": "^3.2.3",
     "cookie-session": "^2.1.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
     "envalid": "^8.0.0",
     "express": "^4.19.1",
     "express-async-errors": "^3.1.1",
@@ -41,12 +40,13 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/uuid": "^9.0.8",
-    "eslint-config-custom": "workspace:*",
+    "dotenv": "^16.4.5",
+    "eslint-config-custom": "*",
     "rimraf": "^5.0.5",
-    "tsconfig": "workspace:*",
+    "tsconfig": "*",
     "tsup": "^8.0.2",
     "tsx": "^4.7.1",
-    "types": "workspace:*",
+    "types": "*",
     "typescript": "^5.4.3"
   }
 }
