@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
-interface PollVoteProps {
+interface VoteProps {
   _id: mongoose.Types.ObjectId;
   poll_id: mongoose.Types.ObjectId;
   vid: string;
 }
 
-const schema = new mongoose.Schema<PollVoteProps>(
+const schema = new mongoose.Schema<VoteProps>(
   {
     poll_id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -22,10 +22,10 @@ const schema = new mongoose.Schema<PollVoteProps>(
     id: false,
     versionKey: false,
     timestamps: false,
-    collection: "poll_votes"
+    collection: "votes"
   }
 );
 
 schema.index({ poll_id: 1, vid: 1 }, { unique: true });
 
-export const PollVote = mongoose.model("PollVote", schema);
+export const Vote = mongoose.model("Vote", schema);

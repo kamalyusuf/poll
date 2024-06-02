@@ -14,8 +14,6 @@ agenda.define(
 
     if (!poll) return Promise.resolve();
 
-    await poll.set({ status: "ended" }).save();
-
-    io.connection.to(poll._id.toString()).emit("poll ended", poll);
+    io.connection.to(poll._id.toString()).emit("poll ended", poll.toJSON());
   }
 );

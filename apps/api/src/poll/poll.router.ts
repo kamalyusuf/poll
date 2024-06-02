@@ -5,7 +5,7 @@ import type { CreatePollPayload, VotePollPayload } from "types";
 import { BadRequestError, NotFoundError } from "@kamalyb/errors";
 import { Poll } from "./poll.model";
 import { validate, version, v4 } from "uuid";
-import { PollVote } from "./poll-vote.model";
+import { Vote } from "./vote.model";
 import { agenda } from "../lib/agenda";
 import { io } from "../lib/io";
 import { isisodate, isobjectid, timeisafter, usetransaction } from "../utils";
@@ -61,18 +61,18 @@ router.put(
   async (req, res) => {
     const body = req.body as VotePollPayload;
 
-    const poll = await Poll.findById(req.params.id);
+    const poll = await Poll.findById(req.params.id).orFail(
+      new NotFoundError("no poll found")
+    );
 
-    if (!poll) throw new NotFoundError("no poll found");
-
-    if (!poll.isactive()) throw new BadRequestError("poll is not active");
+    if (poll.expired()) throw new BadRequestError("poll not active");
 
     const xvid = req.headers["x-vid"] as string | undefined;
 
     if (xvid) {
       if (!v4validate(xvid)) throw new BadRequestError("nice try");
 
-      if (await PollVote.exists({ poll_id: poll._id, vid: xvid }))
+      if (await Vote.exists({ poll_id: poll._id, vid: xvid }))
         throw new BadRequestError("you already voted");
     }
 
@@ -89,7 +89,7 @@ router.put(
     await usetransaction(async (session) => {
       await poll.save({ session });
 
-      return PollVote.create([{ poll_id: poll._id, vid }], { session });
+      return Vote.create([{ poll_id: poll._id, vid }], { session });
     });
 
     io.connection.to(poll._id.toString()).emit("poll voted", poll);
@@ -117,10 +117,10 @@ router.get(
     })
   }),
   async (req, res) => {
-    const poll = await Poll.findById(req.params.id);
-
-    if (!poll) throw new NotFoundError("no poll found");
-
-    res.send(poll);
+    res.send(
+      await Poll.findById(req.params.id).orFail(
+        new NotFoundError("poll not found")
+      )
+    );
   }
 );

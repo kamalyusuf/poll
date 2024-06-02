@@ -1774,7 +1774,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/cookie-session@^2.0.48":
+"@types/cookie-session@^2.0.49":
   version "2.0.49"
   resolved "https://registry.yarnpkg.com/@types/cookie-session/-/cookie-session-2.0.49.tgz#44ae62bd1d1506fbb3cc14470cdf6f74decea04b"
   integrity sha512-4E/bBjlqLhU5l4iGPR+NkVJH593hpNsT4dC3DJDr+ODm6Qpe13kZQVkezRIb+TYDXaBMemS3yLQ+0leba3jlkQ==

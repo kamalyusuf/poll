@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import type { PollStatus } from "types";
 
 interface OptionsProps {
   _id: mongoose.Types.ObjectId;
@@ -11,7 +10,6 @@ export interface PollProps {
   _id: mongoose.Types.ObjectId;
   title: string;
   options: OptionsProps[];
-  status: PollStatus;
   expires_at?: Date;
   created_at: Date;
   updated_at: Date;
@@ -20,7 +18,7 @@ export interface PollProps {
 export type PollDoc = mongoose.HydratedDocument<PollProps & Methods>;
 
 interface Methods {
-  isactive: () => boolean;
+  expired: () => boolean;
 }
 
 const optionschema = new mongoose.Schema<OptionsProps>(
@@ -48,12 +46,6 @@ const pollschema = new mongoose.Schema<PollProps, object, Methods>(
       type: [optionschema],
       required: true
     },
-    status: {
-      type: String,
-      required: true,
-      enum: ["active", "ended"],
-      default: "active"
-    },
     expires_at: Date
   },
   {
@@ -73,12 +65,22 @@ const pollschema = new mongoose.Schema<PollProps, object, Methods>(
   }
 );
 
-pollschema.method("isactive", function () {
-  return this.status === "active";
+pollschema.method("expired", function () {
+  if (!this.expires_at) return false;
+
+  return this.expires_at <= new Date();
 });
 
 pollschema.virtual("total_votes").get(function () {
   return this.options.reduce((acc, current) => acc + current.votes, 0);
+});
+
+pollschema.virtual("status").get(function () {
+  const now = new Date();
+
+  if (!this.expires_at || this.expires_at > now) return "active";
+
+  return "ended";
 });
 
 export const Poll = mongoose.model("Poll", pollschema);
