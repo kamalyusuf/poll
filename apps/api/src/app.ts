@@ -37,7 +37,7 @@ app.use(
   cookiesession({
     signed: false,
     secure: false,
-    maxAge: 24 * 60 * 60 * 1000
+    maxAge: 30 * 24 * 60 * 60 * 1000
   })
 );
 
@@ -58,7 +58,10 @@ const explorer = new MongooseExplorer({
         votes: (poll: PollProps) =>
           poll.options
             .reduce((total, option) => total + option.votes, 0)
-            .toString()
+            .toString(),
+
+        view: (poll: PollProps) =>
+          `<a href="${env.WEB_URL.split(",").at(0)}/${poll._id.toString()}/r" target="_blank" rel="noopener noreferrer">view</a>`
       }
     }
   }
