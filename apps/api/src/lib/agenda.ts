@@ -1,5 +1,5 @@
 import { Agenda } from "agenda";
-import { env } from "./env";
+import { env } from "./env.js";
 import { consola } from "consola";
 
 export const agenda = new Agenda({

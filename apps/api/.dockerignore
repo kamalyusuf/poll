@@ -1,8 +1,0 @@
-**/node_modules
-dist
-.env
-.next
-.env.local
-.idea
-.vscode
-.env.prod

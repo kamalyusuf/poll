@@ -5,8 +5,8 @@ import {
   IconAlertTriangle,
   IconAlertCircle
 } from "@tabler/icons-react";
-import { parseapierror, c } from "../utils";
-import { type AxiosError } from "axios";
+import { parseapierror } from "../utils";
+import type { AxiosError } from "axios";
 import type { ApiError } from "types";
 
 interface AlertProps {
@@ -21,8 +21,16 @@ const icons = {
   error: IconAlertCircle
 };
 
+const colors = {
+  shade: "var(--color-shade)",
+  warning: "var(--color-warning)",
+  success: "var(--color-success)",
+  info: "var(--color-info)",
+  error: "var(--color-error)"
+};
+
 export const Alert = ({ type, message }: AlertProps) => {
-  const color = c.colors[type];
+  const color = colors[type];
   const Icon = icons[type];
 
   return (
@@ -38,8 +46,8 @@ export const Alert = ({ type, message }: AlertProps) => {
           p={20}
           radius="md"
           style={{
-            backgroundColor: c.colors.shade,
-            borderColor: c.colors.shade
+            backgroundColor: colors.shade,
+            borderColor: colors.shade
           }}
         >
           <Group gap={20} align="center">

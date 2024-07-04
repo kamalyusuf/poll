@@ -1,7 +1,7 @@
 import mongoose, { Types } from "mongoose";
 import { consola } from "consola";
-import { type Express } from "express";
-import { type Server } from "node:http";
+import type { Express } from "express";
+import type { Server } from "node:http";
 
 export const timeisafter = (time: Date, additional = 300000) => {
   const min = new Date().getTime() + additional;
@@ -49,5 +49,5 @@ const aspromise = <T>(arg: T | (() => T)) =>
   });
 
 export const saferun = (fn: () => void | Promise<void>) => {
-  aspromise(fn()).then(noop).catch(noop);
+  aspromise(fn).then(noop).catch(noop);
 };

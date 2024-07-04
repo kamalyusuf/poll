@@ -15,7 +15,7 @@ import {
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { type Poll, type VotePollPayload } from "types";
+import type { Poll, VotePollPayload } from "types";
 import { api } from "../../lib/api";
 import { BiUpvote } from "react-icons/bi";
 import { SharePollButton } from "./share-poll-button";
@@ -24,7 +24,7 @@ import { AbsoluteCenter } from "../../components/absolute-center";
 import { PollTimeRemaining } from "./poll-time-remaining";
 import TimeAgo from "react-timeago";
 import { Alert } from "../../components/alert";
-import { type AxiosApiError } from "../../types";
+import type { AxiosApiError } from "../../types";
 import { useUpdateQuery } from "../../hooks/use-update-query";
 
 export const VotePollPage = () => {

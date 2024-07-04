@@ -1,7 +1,7 @@
-import { type Server } from "node:http";
+import type { Server } from "node:http";
 import { type Socket, Server as SocketServer } from "socket.io";
-import { env } from "./env";
-import { saferun } from "../utils";
+import { env } from "./env.js";
+import { saferun } from "../utils/index.js";
 
 class SocketIO {
   private io?: SocketServer;

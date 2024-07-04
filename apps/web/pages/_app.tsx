@@ -14,7 +14,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { SocketProvider } from "../modules/socket/socket-provider";
 import { SocketHandler } from "../modules/socket/socket-handler";
-import { type AppProps } from "next/app";
+import type { AppProps } from "next/app";
 import { api } from "../lib/api";
 
 if (!process.env.NEXT_PUBLIC_API_URL)

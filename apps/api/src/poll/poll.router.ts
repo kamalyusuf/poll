@@ -1,14 +1,19 @@
 import { Router } from "express";
-import { celebrate } from "../lib/celebrate";
+import { celebrate } from "../lib/celebrate.js";
 import Joi from "joi";
 import type { CreatePollPayload, VotePollPayload } from "types";
 import { BadRequestError, NotFoundError } from "@kamalyb/errors";
-import { Poll } from "./poll.model";
+import { Poll } from "./poll.model.js";
 import { validate, version, v4 } from "uuid";
-import { Vote } from "./vote.model";
-import { agenda } from "../lib/agenda";
-import { io } from "../lib/io";
-import { isisodate, isobjectid, timeisafter, usetransaction } from "../utils";
+import { Vote } from "./vote.model.js";
+import { agenda } from "../lib/agenda.js";
+import { io } from "../lib/io.js";
+import {
+  isisodate,
+  isobjectid,
+  timeisafter,
+  usetransaction
+} from "../utils/index.js";
 
 export const router = Router();
 
@@ -47,7 +52,7 @@ router.post(
     if (poll.expires_at)
       await agenda.schedule(poll.expires_at, "end poll", { poll_id: poll._id });
 
-    res.status(201).send(poll);
+    res.status(201).json(poll);
   }
 );
 
@@ -94,7 +99,7 @@ router.put(
 
     io.connection.to(poll._id.toString()).emit("poll voted", poll);
 
-    res.send({
+    res.json({
       vid,
       poll
     });
@@ -117,7 +122,7 @@ router.get(
     })
   }),
   async (req, res) => {
-    res.send(
+    res.json(
       await Poll.findById(req.params.id).orFail(
         new NotFoundError("poll not found")
       )

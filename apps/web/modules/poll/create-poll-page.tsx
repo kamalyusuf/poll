@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import {
   Divider,
   Paper,
@@ -19,7 +18,7 @@ import { MdOutlineAdd } from "react-icons/md";
 import { AiOutlineMinus } from "react-icons/ai";
 import { api } from "../../lib/api";
 import { useRouter } from "next/router";
-import { type CreatePollPayload, type Poll } from "types";
+import type { CreatePollPayload, Poll } from "types";
 import { useMutation } from "@tanstack/react-query";
 import type { AxiosApiError } from "../../types";
 import { DateTimePicker } from "@mantine/dates";

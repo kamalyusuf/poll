@@ -13,7 +13,7 @@ import {
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { type Poll } from "types";
+import type { Poll } from "types";
 import { NewPollButton } from "./new-poll-button";
 import { PollEndedAlert } from "./poll-ended-alert";
 import { PollOption } from "./poll-option";
@@ -22,7 +22,7 @@ import { AbsoluteCenter } from "../../components/absolute-center";
 import { PollTimeRemaining } from "./poll-time-remaining";
 import TimeAgo from "react-timeago";
 import { Alert } from "../../components/alert";
-import { type AxiosApiError } from "../../types";
+import type { AxiosApiError } from "../../types";
 
 export const PollResultPage = () => {
   const router = useRouter();

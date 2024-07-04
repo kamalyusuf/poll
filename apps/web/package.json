@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint . --max-warnings 0 --fix"
+    "start": "next start"
   },
   "dependencies": {
     "@mantine/core": "^7.6.2",
@@ -33,7 +32,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.14.9",
     "@types/nprogress": "^0.2.3",
     "@types/react": "^18.2.69",
     "@types/react-datepicker": "^6.2.0",
@@ -43,6 +42,6 @@
     "postcss-simple-vars": "^7.0.1",
     "tsconfig": "*",
     "types": "*",
-    "typescript": "^5.4.3"
+    "typescript": "^5.5.3"
   }
 }

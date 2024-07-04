@@ -1,4 +1,5 @@
-import axios, { type AxiosError } from "axios";
+import axios from "axios";
+import type { AxiosError } from "axios";
 import { parseapierror } from "../utils";
 import { toast } from "react-toastify";
 import type { ApiError } from "types";

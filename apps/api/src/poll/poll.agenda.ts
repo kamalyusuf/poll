@@ -1,8 +1,8 @@
 import type { Types } from "mongoose";
-import { agenda } from "../lib/agenda";
-import { type Job } from "agenda";
-import { Poll } from "./poll.model";
-import { io } from "../lib/io";
+import { agenda } from "../lib/agenda.js";
+import type { Job } from "agenda";
+import { Poll } from "./poll.model.js";
+import { io } from "../lib/io.js";
 
 agenda.define(
   "end poll",

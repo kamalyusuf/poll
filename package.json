@@ -1,6 +1,7 @@
 {
   "name": "poll",
   "private": true,
+  "type": "module",
   "workspaces": {
     "packages": [
       "apps/*",
@@ -10,19 +11,17 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "lint": "turbo lint",
     "api:dev": "turbo dev --filter=api... --no-cache",
     "api:build": "turbo build --filter=api",
-    "api:lint": "turbo lint --filter api",
     "web:dev": "turbo dev --filter=web... --no-cache",
-    "web:build": "turbo build --filter=web",
-    "web:lint": "turbo lint --filter web"
+    "web:build": "turbo build --filter=web"
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
     "prettier": "^3.2.5",
-    "tsconfig": "*",
-    "turbo": "^1.13.0"
+    "turbo": "^2.0.6"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "engines": {
+    "node": ">=18"
+  }
 }

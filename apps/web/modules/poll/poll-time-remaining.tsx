@@ -1,4 +1,4 @@
-import { type ComponentType } from "react";
+import type { ComponentType } from "react";
 import ReactCountdown, { type CountdownProps } from "react-countdown";
 import { PollEndedAlert } from "./poll-ended-alert";
 import { Text } from "@mantine/core";

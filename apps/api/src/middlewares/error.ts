@@ -9,7 +9,7 @@ export const useglobalerrorhandler = (
   _next: NextFunction
 ) => {
   if (error instanceof CustomError)
-    return res.status(error.status).send({ errors: error.serialize() });
+    return res.status(error.status).json({ errors: error.serialize() });
 
   if (isCelebrateError(error)) {
     const errors = [];
@@ -18,10 +18,10 @@ export const useglobalerrorhandler = (
       for (const e of new JoiValidationError(err.details).serialize())
         errors.push(e);
 
-    return res.status(422).send({ errors });
+    return res.status(422).json({ errors });
   }
 
-  res.status(500).send({
+  return res.status(500).json({
     errors: [
       {
         message: error.message

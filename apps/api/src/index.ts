@@ -1,12 +1,12 @@
 import { consola } from "consola";
-import { type Server } from "node:http";
-import { mongo } from "./lib/mongo";
-import { app } from "./app";
-import { env } from "./lib/env";
-import { io } from "./lib/io";
-import { start } from "./utils";
-import { agenda } from "./lib/agenda";
-import "./poll/poll.agenda";
+import type { Server } from "node:http";
+import { mongo } from "./lib/mongo.js";
+import { app } from "./app.js";
+import { env } from "./lib/env.js";
+import { io } from "./lib/io.js";
+import { start } from "./utils/index.js";
+import { agenda } from "./lib/agenda.js";
+import "./poll/poll.agenda.js";
 
 let server: Server;
 

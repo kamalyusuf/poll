@@ -1,17 +1,16 @@
 import "express-async-errors";
-import mongoose from "mongoose";
 import cors from "cors";
 import express from "express";
-import { env } from "./lib/env";
+import { env } from "./lib/env.js";
 import helmet from "helmet";
 import { NotFoundError } from "@kamalyb/errors";
-import { useglobalerrorhandler } from "./middlewares/error";
-import { router as pollrouter } from "./poll/poll.router";
-import { agenda } from "./lib/agenda";
-import { MongooseExplorer } from "mongoose-explore";
-import cookiesession from "cookie-session";
-import { simplepass, usepass } from "express-simple-pass";
-import type { PollProps } from "./poll/poll.model";
+import { useglobalerrorhandler } from "./middlewares/error.js";
+import { router as pollrouter } from "./poll/poll.router.js";
+import { agenda } from "./lib/agenda.js";
+import agendash from "agendash";
+import listroutes from "express-list-routes";
+import { useexplorer } from "./middlewares/explorer.js";
+import { simplepass } from "./lib/simple-pass.js";
 
 export const app = express();
 
@@ -27,50 +26,15 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(
-  cors({
-    origin: env.WEB_URL.split(",")
-  })
-);
-app.use(
-  cookiesession({
-    signed: false,
-    secure: false,
-    maxAge: 30 * 24 * 60 * 60 * 1000
-  })
-);
+app.use(cors({ origin: env.WEB_URL.split(",") }));
 
 app.get("/", (_req, res) => res.send({ ok: true, uptime: process.uptime() }));
 
-simplepass({
-  app,
-  passkey: env.PASS_KEY,
-  redirect: "/"
-});
+app.use(simplepass.router());
 
-const explorer = new MongooseExplorer({
-  mongoose,
-  rootpath: "/explorer",
-  resources: {
-    Poll: {
-      virtuals: {
-        votes: (poll: PollProps) =>
-          poll.options
-            .reduce((total, option) => total + option.votes, 0)
-            .toString(),
+useexplorer(app);
 
-        view: (poll: PollProps) =>
-          `<a href="${env.WEB_URL.split(",").at(0)}/${poll._id.toString()}/r" target="_blank" rel="noopener noreferrer">view</a>`
-      }
-    }
-  }
-});
-
-app.use(explorer.rootpath, usepass, explorer.router());
-
-// eslint-disable-next-line
-app.use("/agendash", usepass, require("agendash")(agenda));
+app.use("/agendash", simplepass.usepass.bind(simplepass), agendash(agenda));
 
 app.use("/api/polls", pollrouter);
 
@@ -80,5 +44,4 @@ app.use((req, __, next) => {
 
 app.use(useglobalerrorhandler);
 
-// eslint-disable-next-line
-require("express-list-routes")(app);
+listroutes(app, { spacer: 6 });
