@@ -18,7 +18,6 @@ app.set("trust proxy", true);
 app.use(
   helmet({
     contentSecurityPolicy: {
-      useDefaults: true,
       directives: {
         "script-src": ["'unsafe-inline'", "https://cdn.jsdelivr.net"]
       }
@@ -28,7 +27,9 @@ app.use(
 app.use(express.json());
 app.use(cors({ origin: env.WEB_URL.split(",") }));
 
-app.get("/", (_req, res) => res.send({ ok: true, uptime: process.uptime() }));
+app.get("/", (_req, res) => {
+  res.send({ ok: true, uptime: process.uptime() });
+});
 
 app.use(simplepass.router());
 

@@ -28,10 +28,10 @@ import type { AxiosApiError } from "../../types";
 import { useUpdateQuery } from "../../hooks/use-update-query";
 
 export const VotePollPage = () => {
+  const [value, setValue] = useState("");
   const router = useRouter();
   const id: string | undefined =
-    typeof router.query.id === "string" ? router.query.id : undefined;
-  const [value, setValue] = useState("");
+    typeof router.query.id === "string" ? router.query.id : "";
   const {
     data: poll,
     error,

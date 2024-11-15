@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "rimraf dist && tsx watch --clear-screen=false -r dotenv/config src/index.ts",
+    "dev": "rimraf dist && tsx watch --clear-screen=false -r dotenv/config src/index.ts < NUL",
     "build": "rimraf dist && tsc"
   },
   "keywords": [],
@@ -19,27 +19,27 @@
     "consola": "^3.2.3",
     "cors": "^2.8.5",
     "envalid": "^8.0.0",
-    "express": "^4.19.1",
+    "express": "^4.21.1",
     "express-async-errors": "^3.1.1",
-    "express-list-routes": "^1.2.1",
-    "express-simple-pass": "^2.0.0",
-    "helmet": "^7.1.0",
+    "express-list-routes": "^1.2.4",
+    "express-simple-pass": "^2.0.2",
+    "helmet": "^8.0.0",
     "joi": "^17.12.2",
-    "mongoose": "^8.2.3",
-    "mongoose-explore": "^5.2.0",
-    "mongoose-paginate-v2": "^1.8.0",
-    "socket.io": "^4.7.5",
-    "uuid": "^9.0.1"
+    "mongoose": "^8.8.1",
+    "mongoose-explore": "^5.3.1",
+    "mongoose-paginate-v2": "^1.8.5",
+    "socket.io": "^4.8.1",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "@types/uuid": "^9.0.8",
+    "@types/express": "^5.0.0",
+    "@types/uuid": "^10.0.0",
     "dotenv": "^16.4.5",
-    "rimraf": "^5.0.5",
+    "rimraf": "^6.0.1",
     "tsconfig": "*",
-    "tsx": "^4.16.0",
+    "tsx": "^4.19.2",
     "types": "*",
-    "typescript": "^5.5.3"
+    "typescript": "^5.6.3"
   }
 }

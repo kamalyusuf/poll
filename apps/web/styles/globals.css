@@ -58,15 +58,12 @@ body,
   border: 1px solid coral;
 }
 
-.react-datepicker {
-  &__day--selected {
-    background-color: #4f46e5 !important;
-  }
-
-  &-time__caption {
-    color: #4f46e5;
-    font-weight: bold;
-  }
+.react-datepicker__day--selected {
+  background-color: #4f46e5 !important;
+}
+.react-datepicker-time__caption {
+  color: #4f46e5;
+  font-weight: bold;
 }
 
 .Toastify__toast-body {

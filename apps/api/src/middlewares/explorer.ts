@@ -24,8 +24,19 @@ export const useexplorer = (app: Express): void => {
               .reduce((total, option) => total + option.votes, 0)
               .toString(),
 
-          web: (poll: PollProps) =>
-            `<a href="${env.WEB_URL.split(",").at(0)}/${poll._id.toString()}/r" target="_blank" rel="noopener noreferrer">view</a>`
+          open: (poll: PollProps) =>
+            `<a href="${env.WEB_URL.split(",").at(0)}/${poll._id.toString()}/r" target="_blank" rel="noopener noreferrer">open</a>`
+        },
+        bulk_delete: {
+          enabled: false
+        }
+      },
+      Vote: {
+        editable: false,
+        deletable: false,
+        creatable: false,
+        bulk_delete: {
+          enabled: false
         }
       }
     }

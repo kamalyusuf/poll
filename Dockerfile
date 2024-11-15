@@ -13,7 +13,6 @@ RUN apk add --no-cache libc6-compat
 RUN apk update
 WORKDIR /app
 
-COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/yarn.lock ./yarn.lock
 RUN yarn install
@@ -29,4 +28,4 @@ WORKDIR /app
 
 COPY --from=installer /app .
 
-CMD node apps/api/dist/index.js
+CMD ["node", "apps/api/dist/index.js"]

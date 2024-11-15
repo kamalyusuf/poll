@@ -65,6 +65,8 @@ const pollschema = new mongoose.Schema<PollProps, object, Methods>(
   }
 );
 
+pollschema.index({ created_at: 1 });
+
 pollschema.method("expired", function () {
   if (!this.expires_at) return false;
 

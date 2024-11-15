@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import "@mantine/core/styles.css";
-import "../styles/globals.scss";
 import "nprogress/nprogress.css";
 import "react-toastify/dist/ReactToastify.css";
+import "../styles/globals.css";
 import { useState } from "react";
 import { MantineProvider } from "@mantine/core";
 import Head from "next/head";

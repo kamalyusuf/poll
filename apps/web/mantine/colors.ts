@@ -25,42 +25,6 @@ export const colors: MantineThemeOverride["colors"] = {
     "#991B1B",
     "#7F1D1D"
   ],
-  yellow: [
-    "#FFFBEB",
-    "#FEF3C7",
-    "#FDE68A",
-    "#FCD34D",
-    "#FBBF24",
-    "#F59E0B",
-    "#D97706",
-    "#B45309",
-    "#92400E",
-    "#78350F"
-  ],
-  green: [
-    "#ECFDF5",
-    "#D1FAE5",
-    "#A7F3D0",
-    "#6EE7B7",
-    "#34D399",
-    "#10B981",
-    "#059669",
-    "#047857",
-    "#065F46",
-    "#064E3B"
-  ],
-  blue: [
-    "#EFF6FF",
-    "#DBEAFE",
-    "#BFDBFE",
-    "#93C5FD",
-    "#60A5FA",
-    "#3B82F6",
-    "#2563EB",
-    "#1D4ED8",
-    "#1E40AF",
-    "#1E3A8A"
-  ],
   indigo: [
     "#EEF2FF",
     "#E0E7FF",
@@ -73,65 +37,29 @@ export const colors: MantineThemeOverride["colors"] = {
     "#3730A3",
     "#312E81"
   ],
-  purple: [
-    "#F5F3FF",
-    "#EDE9FE",
-    "#DDD6FE",
-    "#C4B5FD",
-    "#A78BFA",
-    "#8B5CF6",
-    "#7C3AED",
-    "#6D28D9",
-    "#5B21B6",
-    "#4C1D95"
+  green: [
+    "#f0fdf4",
+    "#dcfce7",
+    "#bbf7d0",
+    "#86efac",
+    "#4ade80",
+    "#22c55e",
+    "#16a34a",
+    "#15803d",
+    "#166534",
+    "#14532d"
   ],
-  pink: [
-    "#FDF2F8",
-    "#FCE7F3",
-    "#FBCFE8",
-    "#F9A8D4",
-    "#F472B6",
-    "#EC4899",
-    "#DB2777",
-    "#BE185D",
-    "#9D174D",
-    "#831843"
-  ],
-  violet: [
-    "#F5F3FF",
-    "#EDE9FE",
-    "#DDD6FE",
-    "#C4B5FD",
-    "#A78BFA",
-    "#8B5CF6",
-    "#7C3AED",
-    "#6D28D9",
-    "#5B21B6",
-    "#4C1D95"
-  ],
-  cyan: [
-    "#ECFEFF",
-    "#CFFAFE",
-    "#A5F3FC",
-    "#67E8F9",
-    "#22D3EE",
-    "#06B6D4",
-    "#0891B2",
-    "#0E7490",
-    "#155E75",
-    "#164E63"
-  ],
-  teal: [
-    "#F0FDFA",
-    "#CCFBF1",
-    "#99F6E4",
-    "#5EEAD4",
-    "#2DD4BF",
-    "#14B8A6",
-    "#0D9488",
-    "#0F766E",
-    "#115E59",
-    "#134E4A"
+  yellow: [
+    "#FFFBEB",
+    "#FEF3C7",
+    "#FDE68A",
+    "#FCD34D",
+    "#FBBF24",
+    "#F59E0B",
+    "#D97706",
+    "#B45309",
+    "#92400E",
+    "#78350F"
   ],
   orange: [
     "#FFF7ED",
@@ -144,101 +72,5 @@ export const colors: MantineThemeOverride["colors"] = {
     "#C2410C",
     "#9A3412",
     "#7C2D12"
-  ],
-  lime: [
-    "#F7FEE7",
-    "#ECFCCB",
-    "#D9F99D",
-    "#BEF264",
-    "#A3E635",
-    "#84CC16",
-    "#65A30D",
-    "#4D7C0F",
-    "#3F6212",
-    "#365314"
-  ],
-  stone: [
-    "#fafaf9",
-    "#f5f5f4",
-    "#e7e5e4",
-    "#d6d3d1",
-    "#a8a29e",
-    "#78716c",
-    "#57534e",
-    "#44403c",
-    "#292524",
-    "#1c1917"
-  ],
-  amber: [
-    "#fffbeb",
-    "#fef3c7",
-    "#fde68a",
-    "#fcd34d",
-    "#fbbf24",
-    "#f59e0b",
-    "#d97706",
-    "#b45309",
-    "#92400e",
-    "#78350f"
-  ],
-  emerald: [
-    "#ecfdf5",
-    "#d1fae5",
-    "#a7f3d0",
-    "#6ee7b7",
-    "#34d399",
-    "#10b981",
-    "#059669",
-    "#047857",
-    "#065f46",
-    "#064e3b"
-  ],
-  sky: [
-    "#f0f9ff",
-    "#e0f2fe",
-    "#bae6fd",
-    "#7dd3fc",
-    "#38bdf8",
-    "#0ea5e9",
-    "#0284c7",
-    "#0369a1",
-    "#075985",
-    "#0c4a6e"
-  ],
-  rose: [
-    "#fff1f2",
-    "#ffe4e6",
-    "#fecdd3",
-    "#fda4af",
-    "#fb7185",
-    "#f43f5e",
-    "#e11d48",
-    "#be123c",
-    "#9f1239",
-    "#881337"
-  ],
-  neutral: [
-    "#fafafa",
-    "#f5f5f5",
-    "#e5e5e5",
-    "#d4d4d4",
-    "#a3a3a3",
-    "#737373",
-    "#525252",
-    "#404040",
-    "#262626",
-    "#171717"
-  ],
-  zinc: [
-    "#fafafa",
-    "#f4f4f5",
-    "#e4e4e7",
-    "#d4d4d8",
-    "#a1a1aa",
-    "#71717a",
-    "#52525b",
-    "#3f3f46",
-    "#27272a",
-    "#18181b"
   ]
 };

@@ -1,5 +1,9 @@
 import type { NextFunction, Request, Response } from "express";
-import { JoiValidationError, CustomError } from "@kamalyb/errors";
+import {
+  JoiValidationError,
+  CustomError,
+  type ErrorSource
+} from "@kamalyb/errors";
 import { isCelebrateError } from "celebrate";
 
 export const useglobalerrorhandler = (
@@ -7,21 +11,28 @@ export const useglobalerrorhandler = (
   _req: Request,
   res: Response,
   _next: NextFunction
-) => {
-  if (error instanceof CustomError)
-    return res.status(error.status).json({ errors: error.serialize() });
+): void => {
+  if (error instanceof CustomError) {
+    res.status(error.status).json({ errors: error.serialize() });
+    return;
+  }
 
   if (isCelebrateError(error)) {
     const errors = [];
 
-    for (const [, err] of error.details.entries())
-      for (const e of new JoiValidationError(err.details).serialize())
-        errors.push(e);
+    for (const [source, err] of error.details.entries())
+      errors.push(
+        ...new JoiValidationError(
+          err.details,
+          source as ErrorSource
+        ).serialize()
+      );
 
-    return res.status(422).json({ errors });
+    res.status(422).json({ errors });
+    return;
   }
 
-  return res.status(500).json({
+  res.status(500).json({
     errors: [
       {
         message: error.message

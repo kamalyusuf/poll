@@ -6,11 +6,13 @@ import { env } from "./lib/env.js";
 import { io } from "./lib/io.js";
 import { start } from "./utils/index.js";
 import { agenda } from "./lib/agenda.js";
-import "./poll/poll.agenda.js";
+import { agend } from "./poll/poll.agenda.js";
 
 let server: Server;
 
 const bootstrap = async () => {
+  agend(agenda);
+
   await Promise.all([mongo.connect(env.MONGO_URL), agenda.start()]);
 
   server = await start({ app, port: env.PORT });
