@@ -16,9 +16,13 @@ import { SocketProvider } from "../modules/socket/socket-provider";
 import { SocketHandler } from "../modules/socket/socket-handler";
 import type { AppProps } from "next/app";
 import { api } from "../lib/api";
+import dayjs from "dayjs";
+import relativetime from "dayjs/plugin/relativeTime";
 
 if (!process.env.NEXT_PUBLIC_API_URL)
   throw new Error("where NEXT_PUBLIC_API_URL at?");
+
+dayjs.extend(relativetime);
 
 Router.events.on("routeChangeStart", NProgress.start);
 Router.events.on("routeChangeComplete", NProgress.done);

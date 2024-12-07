@@ -22,10 +22,10 @@ import { SharePollButton } from "./share-poll-button";
 import { NewPollButton } from "./new-poll-button";
 import { AbsoluteCenter } from "../../components/absolute-center";
 import { PollTimeRemaining } from "./poll-time-remaining";
-import TimeAgo from "react-timeago";
 import { Alert } from "../../components/alert";
 import type { AxiosApiError } from "../../types";
 import { useUpdateQuery } from "../../hooks/use-update-query";
+import dayjs from "dayjs";
 
 export const VotePollPage = () => {
   const [value, setValue] = useState("");
@@ -151,7 +151,7 @@ export const VotePollPage = () => {
             <Space />
             <Group justify="space-between">
               <Text size="sm" c="indigo" fw={500}>
-                created <TimeAgo date={poll.created_at} />
+                created {dayjs(poll.created_at).fromNow()}
               </Text>
               <NewPollButton />
             </Group>

@@ -2023,25 +2023,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-timeago@npm:^4.1.7":
-  version: 4.1.7
-  resolution: "@types/react-timeago@npm:4.1.7"
-  dependencies:
-    "@types/react": "npm:*"
-  checksum: 10c0/0f5965a0cdcced841889b45003c91643392caffc47470ed6e84784b940b3e8fe2031bce44a6c135e3adf6b5c21f46eb20c3b9211f1ec93c86f8e67ca732aed71
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:*":
-  version: 18.3.3
-  resolution: "@types/react@npm:18.3.3"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 10c0/fe455f805c5da13b89964c3d68060cebd43e73ec15001a68b34634604a78140e6fc202f3f61679b9d809dde6d7a7c2cb3ed51e0fd1462557911db09879b55114
-  languageName: node
-  linkType: hard
-
 "@types/react@npm:^18.3.12":
   version: 18.3.12
   resolution: "@types/react@npm:18.3.12"
@@ -5018,15 +4999,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-timeago@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "react-timeago@npm:7.2.0"
-  peerDependencies:
-    react: ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/89051a12296934e3400319ca7887a0f3ae5a779fd9456769b526ac4771c47a431fb4c68f56ac9726e23d65aad55538f7e2f1c6adfa83224bc8f6278775c26fa3
-  languageName: node
-  linkType: hard
-
 "react-toastify@npm:^10.0.6":
   version: 10.0.6
   resolution: "react-toastify@npm:10.0.6"
@@ -6028,7 +6000,6 @@ __metadata:
     "@types/node": "npm:^22.10.0"
     "@types/nprogress": "npm:^0.2.3"
     "@types/react": "npm:^18.3.12"
-    "@types/react-timeago": "npm:^4.1.7"
     axios: "npm:^1.7.8"
     dayjs: "npm:^1.11.13"
     immer: "npm:^10.0.4"
@@ -6041,7 +6012,6 @@ __metadata:
     react-countdown: "npm:^2.3.6"
     react-dom: "npm:18.3.1"
     react-icons: "npm:^5.3.0"
-    react-timeago: "npm:^7.2.0"
     react-toastify: "npm:^10.0.6"
     socket.io-client: "npm:^4.8.1"
     tsconfig: "npm:*"

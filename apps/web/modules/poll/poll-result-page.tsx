@@ -20,9 +20,9 @@ import { PollOption } from "./poll-option";
 import { SharePollButton } from "./share-poll-button";
 import { AbsoluteCenter } from "../../components/absolute-center";
 import { PollTimeRemaining } from "./poll-time-remaining";
-import TimeAgo from "react-timeago";
 import { Alert } from "../../components/alert";
 import type { AxiosApiError } from "../../types";
+import dayjs from "dayjs";
 
 export const PollResultPage = () => {
   const router = useRouter();
@@ -103,7 +103,7 @@ export const PollResultPage = () => {
             <Space h="md" />
             <Group justify="space-between" style={{ width: "100%" }}>
               <Text size="sm">
-                last updated <TimeAgo date={poll.updated_at} />
+                last updated {dayjs(poll.updated_at).fromNow()}
               </Text>
               <NewPollButton />
             </Group>
