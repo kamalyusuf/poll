@@ -19,7 +19,8 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        "script-src": ["'unsafe-inline'", "https://cdn.jsdelivr.net"]
+        "script-src": ["'unsafe-inline'", "https://cdn.jsdelivr.net"],
+        "script-src-attr": ["'unsafe-inline'"]
       }
     }
   })
@@ -31,11 +32,11 @@ app.get("/", (_req, res) => {
   res.send({ ok: true, uptime: process.uptime() });
 });
 
-app.use(simplepass.router());
-
-useexplorer(app);
-
-app.use("/agendash", simplepass.usepass.bind(simplepass), agendash(agenda));
+if (env.PASS_KEY) {
+  app.use(simplepass.router());
+  useexplorer(app);
+  app.use("/agendash", simplepass.usepass.bind(simplepass), agendash(agenda));
+}
 
 app.use("/api/polls", pollrouter);
 

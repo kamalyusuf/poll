@@ -1,21 +1,6 @@
 import { retry } from "@lifeomic/attempt";
 import { consola } from "consola";
 import mongoose from "mongoose";
-import paginate from "mongoose-paginate-v2";
-
-paginate.paginate.options = {
-  customLabels: {
-    hasNextPage: "has_next_page",
-    hasPrevPage: "has_prev_page",
-    nextPage: "next_page",
-    prevPage: "prev_page",
-    totalDocs: "total_docs",
-    totalPages: "total_pages",
-    pagingCounter: "paging_counter"
-  }
-};
-
-mongoose.plugin(paginate);
 
 mongoose.set("sanitizeProjection", true);
 mongoose.set("sanitizeFilter", true);
@@ -52,6 +37,23 @@ const connect = async (url: string) => {
       }
     }
   );
+
+  if (!(await isreplset()))
+    throw new Error("mongodb must be configured as a replica set");
 };
 
 export const mongo = { connect };
+
+async function isreplset(): Promise<boolean> {
+  const db = mongoose.connection.db;
+
+  if (!db) throw new Error("mongodb connection not opened");
+
+  try {
+    await db.admin().command({ replSetGetStatus: 1 });
+
+    return true;
+  } catch (e) {
+    return false;
+  }
+}

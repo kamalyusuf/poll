@@ -4,14 +4,15 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "rimraf dist && tsx watch --clear-screen=false -r dotenv/config src/index.ts < NUL",
+    "dev": "rimraf dist && tsx watch --clear-screen=false -r dotenv/config src/index.ts",
     "build": "rimraf dist && tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@kamalyb/errors": "^3.1.0",
+    "@kamalyb/errors": "^3.1.2",
+    "@kamalyb/mongoose-explore": "^1.0.2",
     "@lifeomic/attempt": "^3.1.0",
     "agenda": "^5.0.0",
     "agendash": "^4.0.0",
@@ -22,12 +23,10 @@
     "express": "^4.21.1",
     "express-async-errors": "^3.1.1",
     "express-list-routes": "^1.2.4",
-    "express-simple-pass": "^2.0.2",
+    "express-simple-pass": "^2.1.0",
     "helmet": "^8.0.0",
     "joi": "^17.12.2",
-    "mongoose": "^8.8.1",
-    "mongoose-explore": "^5.3.1",
-    "mongoose-paginate-v2": "^1.8.5",
+    "mongoose": "^8.8.3",
     "socket.io": "^4.8.1",
     "uuid": "^11.0.3"
   },
@@ -40,6 +39,6 @@
     "tsconfig": "*",
     "tsx": "^4.19.2",
     "types": "*",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   }
 }

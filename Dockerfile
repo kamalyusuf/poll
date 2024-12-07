@@ -4,13 +4,14 @@ RUN apk add --no-cache libc6-compat
 RUN apk update
 
 WORKDIR /app
-RUN yarn global add turbo
+RUN corepack enable
 COPY . .
-RUN turbo prune --scope=api --docker
+RUN yarn dlx turbo prune --scope=api --docker
 
 FROM node:alpine AS installer
 RUN apk add --no-cache libc6-compat
 RUN apk update
+RUN corepack enable
 WORKDIR /app
 
 COPY --from=builder /app/out/json/ .
@@ -20,7 +21,7 @@ RUN yarn install
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
 
-RUN yarn turbo run build --filter=api
+RUN yarn api:build
 
 FROM node:alpine AS runner
 

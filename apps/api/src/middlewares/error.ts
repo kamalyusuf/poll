@@ -12,10 +12,8 @@ export const useglobalerrorhandler = (
   res: Response,
   _next: NextFunction
 ): void => {
-  if (error instanceof CustomError) {
-    res.status(error.status).json({ errors: error.serialize() });
-    return;
-  }
+  if (error instanceof CustomError)
+    return void res.status(error.status).json({ errors: error.serialize() });
 
   if (isCelebrateError(error)) {
     const errors = [];
@@ -28,8 +26,7 @@ export const useglobalerrorhandler = (
         ).serialize()
       );
 
-    res.status(422).json({ errors });
-    return;
+    return void res.status(422).json({ errors });
   }
 
   res.status(500).json({

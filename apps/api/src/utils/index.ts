@@ -36,7 +36,6 @@ export const start = ({ app, port }: { app: Express; port: number }) =>
     server.on("error", reject);
   });
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
 
 const aspromise = <T>(arg: T | (() => T)) =>

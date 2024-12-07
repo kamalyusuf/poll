@@ -1,0 +1,18 @@
+services:
+  mongo-rs:
+    image: kamalyb/mongo-rs
+    container_name: mongo-rs
+    restart: always
+    ports:
+      - "27017:27017"
+      - "27018:27018"
+      - "27019:27019"
+    volumes:
+      - node1:/mongodb/node1/data
+      - node2:/mongodb/node2/data
+      - node3:/mongodb/node3/data
+
+volumes:
+  node1:
+  node2:
+  node3:
