@@ -19,7 +19,7 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        "script-src": ["'unsafe-inline'", "https://cdn.jsdelivr.net"],
+        "script-src": ["'unsafe-inline'", "https://cdn.jsdelivr.net", "'self'"],
         "script-src-attr": ["'unsafe-inline'"]
       }
     }
@@ -32,7 +32,7 @@ app.get("/", (_req, res) => {
   res.send({ ok: true, uptime: process.uptime() });
 });
 
-if (env.PASS_KEY) {
+if (env.PASS_KEY && env.SECRET) {
   app.use(simplepass.router());
   useexplorer(app);
   app.use("/agendash", simplepass.usepass.bind(simplepass), agendash(agenda));

@@ -5,40 +5,41 @@
   "type": "module",
   "scripts": {
     "dev": "rimraf dist && tsx watch --clear-screen=false -r dotenv/config src/index.ts",
-    "build": "rimraf dist && tsc"
+    "build": "rimraf dist && tsc",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@kamalyb/errors": "^3.1.2",
-    "@kamalyb/mongoose-explore": "^1.0.2",
+    "@kamalyb/mongoose-explore": "^2.5.3",
     "@lifeomic/attempt": "^3.1.0",
     "agenda": "^5.0.0",
     "agendash": "^4.0.0",
     "celebrate": "^15.0.3",
-    "consola": "^3.2.3",
+    "consola": "^3.4.2",
     "cors": "^2.8.5",
     "envalid": "^8.0.0",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "express-async-errors": "^3.1.1",
     "express-list-routes": "^1.2.4",
-    "express-simple-pass": "^2.1.0",
-    "helmet": "^8.0.0",
+    "express-simple-pass": "^2.2.1",
+    "helmet": "^8.1.0",
     "joi": "^17.12.2",
-    "mongoose": "^8.8.3",
+    "mongoose": "^8.13.0",
     "socket.io": "^4.8.1",
-    "uuid": "^11.0.3"
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
+    "@types/express": "^5.0.1",
     "@types/uuid": "^10.0.0",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "rimraf": "^6.0.1",
     "tsconfig": "*",
     "tsx": "^4.19.2",
     "types": "*",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.2"
   }
 }

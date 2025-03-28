@@ -12,11 +12,12 @@
     "api:dev": "turbo dev --filter=api... --no-cache",
     "api:build": "turbo build --filter=api",
     "web:dev": "turbo dev --filter=web... --no-cache",
-    "web:build": "turbo build --filter=web"
+    "web:build": "turbo build --filter=web",
+    "typecheck": "turbo typecheck"
   },
   "devDependencies": {
-    "prettier": "^3.4.1",
-    "turbo": "^2.3.2"
+    "prettier": "^3.5.3",
+    "turbo": "^2.4.4"
   },
   "packageManager": "yarn@4.5.3",
   "engines": {
